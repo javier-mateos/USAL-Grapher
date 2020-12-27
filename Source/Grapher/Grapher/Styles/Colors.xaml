@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Grapher">
+
+    <!--#region Colors -->
+    
+    <!-- Primary Color -->
+    <Color x:Key="Primary">#3758FF</Color>
+    <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource Primary}"/>
+
+    <!-- Secondary Color -->
+    <Color x:Key="Secondary">#6035DC</Color>
+    <SolidColorBrush x:Key="SecondaryColorBrush" Color="{StaticResource Secondary}"/>
+
+    <!-- Base Background Color -->
+    <Color x:Key="BaseBackground">#121212</Color>
+
+    <!--#endregion-->
+
+    <!--#region Elevations -->
+
+    <!-- 00dp Elevation -->
+    <SolidColorBrush x:Key="BaseBackgroundBrush" Color="{StaticResource BaseBackground}"/>
+    <DropShadowEffect x:Key="00dpDropShadow" Color="#000000" Opacity="0.25" BlurRadius="4" ShadowDepth="4" Direction="270"/>
+
+    <!-- 01dp Elevation -->
+    <SolidColorBrush x:Key="01dpBackgroundBrush" Opacity="0.05" Color="#ffffff"/>
+    <DropShadowEffect x:Key="01dpDropShadow" Color="#CCCCCC" BlurRadius="5" ShadowDepth="1" Direction="270"/>
+
+    <!-- 02dp Elevation -->
+    <SolidColorBrush x:Key="02dpBackgroundBrush" Opacity="0.07" Color="#ffffff"/>
+    <DropShadowEffect x:Key="02dpDropShadow" Color="#BBBBBB" BlurRadius="8" ShadowDepth="2.5" Direction="270"/>
+    
+    <!--#endregion-->
+
+</ResourceDictionary>
