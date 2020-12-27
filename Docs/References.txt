@@ -1,1 +1,2 @@
 --> Material Design Dropshadows in WPF: http://web.archive.org/web/20170722144651/http://marcangers.com:80/material-design-shadows-in-wpf/
+--> Recomended WPF icon size: https://stackoverflow.com/questions/12901212/taskbar-ugly-icon-in-wpf-application
