@@ -17,3 +17,6 @@ C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Deb
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Grapher.csproj.CoreCompileInputs.cache
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Grapher.exe
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Grapher.pdb
+C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\Typography.baml
+C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Grapher.csproj.Fody.CopyLocal.cache
+C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\Fonts.baml

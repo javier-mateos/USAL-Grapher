@@ -14,23 +14,33 @@
 
     <!-- Base Background Color -->
     <Color x:Key="BaseBackground">#121212</Color>
+    <SolidColorBrush x:Key="BaseBackgroundBrush" Color="{StaticResource BaseBackground}"/>
 
     <!--#endregion-->
 
+    
     <!--#region Elevations -->
 
-    <!-- 00dp Elevation -->
-    <SolidColorBrush x:Key="BaseBackgroundBrush" Color="{StaticResource BaseBackground}"/>
-    <DropShadowEffect x:Key="00dpDropShadow" Color="#000000" Opacity="0.25" BlurRadius="4" ShadowDepth="4" Direction="270"/>
-
+    <!-- Base Shadow Colors -->
+    <Color x:Key="ShadowColor">#AA000000</Color>
+    <SolidColorBrush x:Key="ShadowBrush" Color="{StaticResource ShadowColor}"/>
+    
     <!-- 01dp Elevation -->
-    <SolidColorBrush x:Key="01dpBackgroundBrush" Opacity="0.05" Color="#ffffff"/>
-    <DropShadowEffect x:Key="01dpDropShadow" Color="#CCCCCC" BlurRadius="5" ShadowDepth="1" Direction="270"/>
+    <SolidColorBrush x:Key="01dpBackgroundBrush" Color="#1E1E1E"/>
+    <DropShadowEffect x:Key="01dpDropShadowDown" BlurRadius="5" ShadowDepth="1" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
 
     <!-- 02dp Elevation -->
-    <SolidColorBrush x:Key="02dpBackgroundBrush" Opacity="0.07" Color="#ffffff"/>
-    <DropShadowEffect x:Key="02dpDropShadow" Color="#BBBBBB" BlurRadius="8" ShadowDepth="2.5" Direction="270"/>
-    
+    <DropShadowEffect x:Key="02dpDropShadowDown" BlurRadius="8" ShadowDepth="1.5" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
+
+    <!-- 03dp Elevation -->
+    <DropShadowEffect x:Key="03dpDropShadowDown" BlurRadius="14" ShadowDepth="4.5" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
+
+    <!-- 04dp Elevation -->
+    <DropShadowEffect x:Key="04dpDropShadowDown" BlurRadius="25" ShadowDepth="8" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
+
+    <!-- 05dp Elevation -->
+    <DropShadowEffect x:Key="05dpDropShadowDown" BlurRadius="35" ShadowDepth="13" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
+
     <!--#endregion-->
 
 </ResourceDictionary>

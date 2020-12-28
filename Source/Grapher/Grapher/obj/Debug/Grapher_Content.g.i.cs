@@ -8,11 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/logo/logo.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/logo/logo_16px.ico")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/logo/logo_256px.ico")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/logo/logo_32px.ico")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/logo/logo_48px.ico")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/logo/logo_small.png")]
 
 
