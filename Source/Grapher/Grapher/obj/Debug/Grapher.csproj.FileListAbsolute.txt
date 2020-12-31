@@ -22,3 +22,4 @@ C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Deb
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Views\MainWindow.baml
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Views\WelcomeWindow.baml
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\TabControl.baml
+C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\Menu.baml

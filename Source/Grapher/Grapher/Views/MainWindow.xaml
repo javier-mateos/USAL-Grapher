@@ -59,7 +59,7 @@
 
                 <!-- Edit -->
                 <MenuItem Header="Edit">
-
+                    <MenuItem Header="Pepe"/>
                 </MenuItem>
 
                 <!-- View -->
@@ -69,7 +69,7 @@
 
                 <!-- Help -->
                 <MenuItem Header="Help">
-
+                    <MenuItem Header="Pepe2"/>
                 </MenuItem>
 
             </Menu>
