@@ -24,5 +24,13 @@ namespace Grapher
         {
             InitializeComponent();
         }
+
+        private void swapPanelsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Dock tmpDock = DockPanel.GetDock(this.toolBar);
+
+            DockPanel.SetDock(this.toolBar, DockPanel.GetDock(this.sidePanel));
+            DockPanel.SetDock(this.sidePanel, tmpDock);
+        }
     }
 }

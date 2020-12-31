@@ -26,19 +26,28 @@
     <SolidColorBrush x:Key="ShadowBrush" Color="{StaticResource ShadowColor}"/>
     
     <!-- 01dp Elevation -->
-    <SolidColorBrush x:Key="01dpBackgroundBrush" Color="#1E1E1E"/>
+    <Color x:Key="01dpBackgroundColor">#1E1E1E</Color>
+    <SolidColorBrush x:Key="01dpBackgroundBrush" Color="{StaticResource 01dpBackgroundColor}"/>
     <DropShadowEffect x:Key="01dpDropShadowDown" BlurRadius="5" ShadowDepth="1" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
 
     <!-- 02dp Elevation -->
+    <Color x:Key="02dpBackgroundColor">#232323</Color>
+    <SolidColorBrush x:Key="02dpBackgroundBrush" Color="{StaticResource 02dpBackgroundColor}"/>
     <DropShadowEffect x:Key="02dpDropShadowDown" BlurRadius="8" ShadowDepth="1.5" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
 
     <!-- 03dp Elevation -->
+    <Color x:Key="03dpBackgroundColor">#252525</Color>
+    <SolidColorBrush x:Key="03dpBackgroundBrush" Color="{StaticResource 03dpBackgroundColor}"/>
     <DropShadowEffect x:Key="03dpDropShadowDown" BlurRadius="14" ShadowDepth="4.5" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
 
     <!-- 04dp Elevation -->
+    <Color x:Key="04dpBackgroundColor">#272727</Color>
+    <SolidColorBrush x:Key="04dpBackgroundBrush" Color="{StaticResource 04dpBackgroundColor}"/>
     <DropShadowEffect x:Key="04dpDropShadowDown" BlurRadius="25" ShadowDepth="8" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
 
     <!-- 05dp Elevation -->
+    <Color x:Key="05dpBackgroundColor">#2C2C2C</Color>
+    <SolidColorBrush x:Key="05dpBackgroundBrush" Color="{StaticResource 05dpBackgroundColor}"/>
     <DropShadowEffect x:Key="05dpDropShadowDown" BlurRadius="35" ShadowDepth="13" Direction="270" Color="{StaticResource ShadowColor}" Opacity=".42"/>
 
     <!--#endregion-->

@@ -3,9 +3,6 @@
                     xmlns:local="clr-namespace:Grapher">
     
     
-    
-
-
     <!--#region  Buttons -->
     
     <!-- Welcome Screen Button -->
@@ -38,7 +35,6 @@
         <Setter Property="BorderBrush" Value="{x:Null}"/>
         <Setter Property="BorderThickness" Value="0"/>
 
-
         <!-- Alignment -->
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -46,11 +42,6 @@
         
         <!-- Others -->
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        <Style.Resources>
-            <Style>
-                
-            </Style>
-        </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -86,8 +77,8 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
+
     <!--#endregion-->
-    
+
+
 </ResourceDictionary>
