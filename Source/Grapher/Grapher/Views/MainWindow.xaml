@@ -50,7 +50,7 @@
 
                 <Separator/>
 
-                <MenuItem Header="Exit"/>
+                <MenuItem Name="exitMenuItem" Header="Exit" Click="exitMenuItem_Click"/>
 
             </MenuItem>
 
@@ -81,16 +81,46 @@
         </Border>
 
         <!-- Side Panel -->
-        <Border x:Name="sidePanel" Panel.ZIndex="2"
-                DockPanel.Dock="Right"
-                Width="350"
+        <Border x:Name="sidePanel" DockPanel.Dock="Right" Panel.ZIndex="2"             
+                Width="350" Padding="32 32 32 48"
                 Background="{StaticResource 02dpBackgroundBrush}"
                 Effect="{StaticResource 02dpDropShadowDown}">
+            
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Image Source="/Images/BarChart.png" Height="32" Margin="0 0 18 0"/>
+                    <TextBlock Text="Data Sets" Style="{StaticResource TextH4}"/>
+                </StackPanel>
+
+                <!-- Graphs List -->
+                <ListBox Grid.Row="1" Margin="0 16 0 24">
+
+                </ListBox>
+
+                <!-- Add Graph Button -->
+                <Button Grid.Row="2">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Images/Add.png" Height="14" Margin="0 0 10 0"/>
+                            <TextBlock Text="ADD" Style="{StaticResource TextButton}"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+            </Grid>
 
         </Border>
 
         <!-- Graph Canvas -->
-        <TabControl x:Name="projectsTab"
+        <TabControl x:Name="projectsTab" Panel.ZIndex="1"
                     Style="{StaticResource projectsTabControl}">
 
             <TabItem Style="{StaticResource projectTabItem}">

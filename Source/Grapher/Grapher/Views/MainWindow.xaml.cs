@@ -32,5 +32,10 @@ namespace Grapher
             DockPanel.SetDock(this.toolBar, DockPanel.GetDock(this.sidePanel));
             DockPanel.SetDock(this.sidePanel, tmpDock);
         }
+
+        private void exitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

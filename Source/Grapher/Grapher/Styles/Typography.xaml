@@ -17,6 +17,13 @@
         <Setter Property="Opacity" Value="0.87"/>
     </Style>
 
+    <!-- Header H4 -->
+    <Style x:Key="TextH4" TargetType="TextBlock" BasedOn="{StaticResource baseText}">
+        <Setter Property="FontSize" Value="34"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Opacity" Value="0.87"/>
+    </Style>
+
     <!-- Header H5 -->
     <Style x:Key="TextH5" TargetType="TextBlock" BasedOn="{StaticResource baseText}">
         <Setter Property="FontSize" Value="24"/>
