@@ -19,7 +19,7 @@
 
                     <!-- Menu Bar -->
                     <Border Background="{StaticResource 03dpBackgroundBrush}"
-                            Effect="{StaticResource 03dpDropShadowDown}">
+                            Effect="{StaticResource 02dpDropShadowDown}">
 
                         <!-- Content Panel -->
                         <StackPanel ClipToBounds="True" 
@@ -44,11 +44,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Separator}">
-                    <Border BorderThickness="1">
-                        <Border.BorderBrush>
-                            <SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
-                        </Border.BorderBrush>
-                    </Border>
+                    <Border BorderThickness="1" BorderBrush="#1FFFFFFF"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -56,7 +52,8 @@
     <!--#endregion-->
 
     <!--#region Menu TopLevelHeader -->
-    <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
+    <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}"
+                     TargetType="{x:Type MenuItem}">
 
         <!-- Menu Item -->
         <Border x:Name="Border">
@@ -80,13 +77,8 @@
                             Effect="{StaticResource 04dpDropShadowDown}">
 
                         <!-- Submenu Content-->
-                        <ScrollViewer CanContentScroll="True"
-                                      Style="{StaticResource MenuScrollViewer}">
+                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
 
-                            <StackPanel IsItemsHost="True" 
-                                        KeyboardNavigation.DirectionalNavigation="Cycle" />
-
-                        </ScrollViewer>
                     </Border>
                 </Popup>
 
@@ -101,36 +93,12 @@
             </Trigger>
 
             <Trigger Property="IsHighlighted" Value="true">
-
                 <Setter Property="BorderBrush" TargetName="Border" Value="Transparent" />
-
-                <!-- Selected Item Color -->
-                <Setter Property="Background" TargetName="Border">
-                    <Setter.Value>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStopCollection>
-                                    <GradientStop Color="{StaticResource 04dpBackgroundColor}" />
-                                    <GradientStop Color="{StaticResource 04dpBackgroundColor}" Offset="1.0" />
-                                </GradientStopCollection>
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
-
-            </Trigger>
-
-            <Trigger SourceName="Popup" Property="AllowsTransparency" Value="True">
-                <Setter TargetName="SubmenuBorder" Property="CornerRadius" Value="0,0,4,4" />
-                <Setter TargetName="SubmenuBorder" Property="Padding" Value="0,0,0,3" />
+                <Setter Property="Background" TargetName="Border" Value="#2C2C2C"/>
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground">
-                    <Setter.Value>
-                        <SolidColorBrush Color="blue" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Foreground" Value="#60FFFFFF"/>
             </Trigger>
 
         </ControlTemplate.Triggers>
@@ -142,7 +110,10 @@
                      TargetType="{x:Type MenuItem}">
 
         <!-- Submenu Item -->
-        <Border x:Name="Border" BorderThickness="1">
+        <Border x:Name="Border"
+                Padding="10 1"
+                MinWidth="100">
+            
             <Grid>
                 
                 <Grid.ColumnDefinitions>
@@ -163,34 +134,22 @@
                         Width="13" Height="13"
                         Visibility="Collapsed"
                         Margin="6,0,6,0"
-                        BorderThickness="1">
+                        BorderThickness="1"
+                        BorderBrush="Blue"
+                        Background="Green">
                     
-                    <Border.BorderBrush>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStopCollection>
-                                    <GradientStop Color="{DynamicResource BorderLightColor}"Offset="0.0" />
-                                    <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
-                                </GradientStopCollection>
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Border.BorderBrush>
-                    
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStopCollection>
-                                    <GradientStop Color="{DynamicResource ControlLightColor}" />
-                                    <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1.0" />
-                                </GradientStopCollection>
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    
-                    <Path x:Name="CheckMark" Width="7" Height="7" Visibility="Hidden" SnapsToDevicePixels="False" StrokeThickness="2" Data="M 0 0 L 7 7 M 0 7 L 7 0">
+                    <!-- Checkmark -->
+                    <Path x:Name="CheckMark"
+                          Width="7" Height="7"
+                          Visibility="Hidden"
+                          SnapsToDevicePixels="False"
+                          StrokeThickness="2"
+                          Data="M 0 0 L 7 7 M 0 7 L 7 0">
+                        
                         <Path.Stroke>
-                            <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                            <SolidColorBrush Color="Gold" />
                         </Path.Stroke>
+                        
                     </Path>
                     
                 </Border>
@@ -229,31 +188,11 @@
             </Trigger>
             
             <Trigger Property="IsHighlighted" Value="true">
-                <Setter Property="Background" TargetName="Border">
-                    <Setter.Value>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Transparent" Offset="0" />
-                            <GradientStop Color="{DynamicResource ControlMouseOverColor}" Offset="1" />
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
-
-                <Setter Property="BorderBrush" TargetName="Border">
-                    <Setter.Value>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="{DynamicResource BorderMediumColor}" Offset="0" />
-                            <GradientStop Color="Transparent" Offset="1" />
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Background" TargetName="Border" Value="#3758FF"/>
             </Trigger>
             
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{StaticResource DisabledForegroundColor}" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Foreground" Value="#60FFFFFF"/>
             </Trigger>
             
         </ControlTemplate.Triggers>
@@ -265,7 +204,7 @@
                      TargetType="{x:Type MenuItem}">
 
         <!-- Submenu Header -->
-        <Border x:Name="Border" BorderThickness="1">
+        <Border x:Name="Border" Padding="22 1 10 1" MinWidth="100">
             <Grid>
                 
                 <Grid.ColumnDefinitions>
@@ -301,7 +240,7 @@
                       Data="M 0 0 L 0 7 L 4 3.5 Z">
                     
                     <Path.Fill>
-                        <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                        <SolidColorBrush Color="#DDFFFFFF" />
                     </Path.Fill>
                 </Path>
 
@@ -317,21 +256,16 @@
                     <!-- Submenu Header Submenu Border -->
                     <Border x:Name="SubmenuBorder"
                             SnapsToDevicePixels="True"
-                            Background="{DynamicResource MenuPopupBrush}"
-                            BorderThickness="1">
-
-                        <Border.BorderBrush>
-                            <SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
-                        </Border.BorderBrush>
+                            Background="{StaticResource 05dpBackgroundBrush}"
+                            Effect="{StaticResource 05dpDropShadowDown}">
 
                         <!-- Submenu Header Submenu Scroller -->
-                        <ScrollViewer CanContentScroll="True" Style="{StaticResource MenuScrollViewer}">
-                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
-                        </ScrollViewer>
-                        
+                        <StackPanel IsItemsHost="True"
+                                    KeyboardNavigation.DirectionalNavigation="Cycle" />
+
                     </Border>
+                    
                 </Popup>
-                
             </Grid>
         </Border>
 
@@ -341,37 +275,13 @@
             <Trigger Property="Icon" Value="{x:Null}">
                 <Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            
+
             <Trigger Property="IsHighlighted" Value="true">
-                <Setter Property="Background" TargetName="Border">
-                    <Setter.Value>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="Transparent" Offset="0" />
-                            <GradientStop Color="{DynamicResource ControlMouseOverColor}" Offset="1" />
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="BorderBrush" TargetName="Border">
-                    <Setter.Value>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="{DynamicResource BorderMediumColor}" Offset="0" />
-                            <GradientStop Color="Transparent" Offset="1" />
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Background" TargetName="Border" Value="#3758FF"/>
             </Trigger>
-            
-            <Trigger SourceName="Popup" Property="AllowsTransparency" Value="True">
-                <Setter TargetName="SubmenuBorder" Property="CornerRadius" Value="4" />
-                <Setter TargetName="SubmenuBorder" Property="Padding" Value="0,3,0,3" />
-            </Trigger>
-            
+
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{StaticResource DisabledForegroundColor}" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Foreground" Value="#60FFFFFF"/>
             </Trigger>
             
         </ControlTemplate.Triggers>
@@ -403,103 +313,6 @@
             </Trigger>
             
         </Style.Triggers>
-    </Style>
-    <!--#endregion-->
-
-    <!--#region ScrollViewer for a MenuItem -->
-    <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
-
-    <Style x:Key="MenuScrollViewer" 
-           TargetType="{x:Type ScrollViewer}" 
-           BasedOn="{x:Null}">
-        
-        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
-        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-        
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                    <Grid SnapsToDevicePixels="True">
-                        
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        
-                        <Border Grid.Row="1" Grid.Column="0">
-                            <ScrollContentPresenter Margin="{TemplateBinding Padding}" />
-                        </Border>
-                        
-                        <RepeatButton Style="{StaticResource MenuScrollButton}"
-                                      Grid.Row="0" Grid.Column="0" 
-                                      Command="{x:Static ScrollBar.LineUpCommand}" 
-                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="False">
-                            
-                            <RepeatButton.Visibility>
-                                <MultiBinding FallbackValue="Visibility.Collapsed"
-                                              Converter="{StaticResource MenuScrollingVisibilityConverter}" 
-                                              ConverterParameter="0">
-                                    
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                             Path="ComputedVerticalScrollBarVisibility" />
-                                    
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                             Path="VerticalOffset" />
-                                    
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                             Path="ExtentHeight" />
-                                    
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                             Path="ViewportHeight" />
-                                
-                                </MultiBinding>
-                            </RepeatButton.Visibility>
-                            
-                            <Path Fill="{DynamicResource {x:Static SystemColors.MenuTextBrushKey}}" 
-                                  Data="{StaticResource UpArrow}" />
-                        
-                        </RepeatButton>
-                        
-                        <RepeatButton Style="{StaticResource MenuScrollButton}"
-                                      Grid.Row="2" Grid.Column="0" 
-                                      Command="{x:Static ScrollBar.LineDownCommand}" 
-                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="False">
-                            
-                            <RepeatButton.Visibility>
-                                <MultiBinding FallbackValue="Visibility.Collapsed" 
-                                              Converter="{StaticResource MenuScrollingVisibilityConverter}" 
-                                              ConverterParameter="100">
-                                    
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                             Path="ComputedVerticalScrollBarVisibility" />
-                                    
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                             Path="VerticalOffset" />
-                                    
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                             Path="ExtentHeight" />
-                                    
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                             Path="ViewportHeight" />
-                                    
-                                </MultiBinding>
-                            </RepeatButton.Visibility>
-                            
-                            <Path Fill="{DynamicResource {x:Static SystemColors.MenuTextBrushKey}}" 
-                                  Data="{StaticResource DownArrow}" />
-                        
-                        </RepeatButton>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
     <!--#endregion-->
 

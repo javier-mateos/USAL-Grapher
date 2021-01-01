@@ -14,98 +14,93 @@
     <DockPanel x:Name="dockPanel">
 
         <!-- Menu Bar -->
-        <Border DockPanel.Dock="Top"
-                Effect="{StaticResource 02dpDropShadowDown}">
+        <Menu DockPanel.Dock="Top" Panel.ZIndex="3">
 
-            <Menu>
+            <!-- File -->
+            <MenuItem Header="File">
 
-                <!-- File -->
-                <MenuItem Header="File">
-
-                    <!-- New -->
-                    <MenuItem Header="New">
-                        <MenuItem Header="Project"/>
-                        <MenuItem Header="Graph"/>
-                    </MenuItem>
-
-                    <!-- Open -->
-                    <MenuItem Header="Open">
-                        <MenuItem Header="Project"/>
-                    </MenuItem>
-
-                    <Separator/>
-
-                    <!-- Save -->
-                    <MenuItem Header="Save"/>
-                    <MenuItem Header="Save all"/>
-
-                    <Separator/>
-
-                    <!-- Close -->
-                    <MenuItem Header="Close"/>
-                    <MenuItem Header="Close all"/>
-
-                    <Separator/>
-
-                    <!-- Import & Export -->
-                    <MenuItem Header="Import"/>
-                    <MenuItem Header="Export"/>
-
-                    <Separator/>
-
-                    <MenuItem Header="Exit"/>
-
+                <!-- New -->
+                <MenuItem Header="New">
+                    <MenuItem Header="Project"/>
+                    <MenuItem Header="Graph"/>
                 </MenuItem>
 
-                <!-- Edit -->
-                <MenuItem Header="Edit">
-                    <MenuItem Header="Pepe"/>
+                <!-- Open -->
+                <MenuItem Header="Open">
+                    <MenuItem Header="Project"/>
                 </MenuItem>
 
-                <!-- View -->
-                <MenuItem Header="View">
-                    <MenuItem Name="swapPanelsMenuItem" Header="Swap Panels" Click="swapPanelsMenuItem_Click"/>
-                </MenuItem>
+                <Separator/>
 
-                <!-- Help -->
-                <MenuItem Header="Help">
-                    <MenuItem Header="Pepe2"/>
-                </MenuItem>
+                <!-- Save -->
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Save all"/>
 
-            </Menu>
+                <Separator/>
 
-        </Border>
+                <!-- Close -->
+                <MenuItem Header="Close"/>
+                <MenuItem Header="Close all"/>
 
+                <Separator/>
+
+                <!-- Import & Export -->
+                <MenuItem Header="Import"/>
+                <MenuItem Header="Export"/>
+
+                <Separator/>
+
+                <MenuItem Header="Exit"/>
+
+            </MenuItem>
+
+            <!-- Edit -->
+            <MenuItem Header="Edit">
+                <MenuItem Header="Pepe"/>
+            </MenuItem>
+
+            <!-- View -->
+            <MenuItem Header="View">
+                <MenuItem Name="swapPanelsMenuItem" Header="Swap Panels" Click="swapPanelsMenuItem_Click"/>
+            </MenuItem>
+
+            <!-- Help -->
+            <MenuItem Header="Help">
+                <MenuItem Header="Pepe2"/>
+            </MenuItem>
+
+        </Menu>
 
         <!-- Tool Bar -->
-        <Border x:Name="toolBar" Panel.ZIndex="1"
+        <Border x:Name="toolBar" Panel.ZIndex="2"
                 DockPanel.Dock="Left"
                 Width="40"
-                Background="{StaticResource 01dpBackgroundBrush}"
-                Effect="{StaticResource 01dpDropShadowDown}">
+                Background="{StaticResource 02dpBackgroundBrush}"
+                Effect="{StaticResource 02dpDropShadowDown}">
 
         </Border>
 
         <!-- Side Panel -->
-        <Border x:Name="sidePanel" 
+        <Border x:Name="sidePanel" Panel.ZIndex="2"
                 DockPanel.Dock="Right"
                 Width="350"
-                Background="{StaticResource 01dpBackgroundBrush}"
-                Effect="{StaticResource 01dpDropShadowDown}">
+                Background="{StaticResource 02dpBackgroundBrush}"
+                Effect="{StaticResource 02dpDropShadowDown}">
 
         </Border>
 
         <!-- Graph Canvas -->
-        <TabControl x:Name="projectsTab">
+        <TabControl x:Name="projectsTab"
+                    Style="{StaticResource projectsTabControl}">
 
-            <TabItem>
+            <TabItem Style="{StaticResource projectTabItem}">
                 <TabItem.Header>
                     Project 1
                 </TabItem.Header>
 
             </TabItem>
 
-            <TabItem>
+            <TabItem Style="{StaticResource projectTabItem}">
                 <TabItem.Header>
                     Project 2
                 </TabItem.Header>
