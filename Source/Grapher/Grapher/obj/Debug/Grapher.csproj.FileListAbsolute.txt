@@ -18,8 +18,9 @@ C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Deb
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\Fonts.baml
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Views\MainWindow.g.cs
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Views\WelcomeWindow.g.cs
-C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\Components.baml
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Views\MainWindow.baml
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Views\WelcomeWindow.baml
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\TabControl.baml
 C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\Menu.baml
+C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\Buttons.baml
+C:\Users\javie\Documents\Development\USAL-Grapher\Source\Grapher\Grapher\obj\Debug\Styles\ListBox.baml

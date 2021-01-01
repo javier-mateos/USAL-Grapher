@@ -1,0 +1,41 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Grapher">
+    
+    <!--#region Welcome Screen Button -->
+    
+    <!--#endregion-->
+
+    <!--#region Transparent Button -->
+    
+    <!-- Button -->
+    <Style x:Key="transparentBtn" TargetType="Button">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <!-- Button -->
+                    <Border x:Name="Border">
+
+                        <!-- Button Content -->
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True" />
+                    </Border>
+                    
+                    <!-- Button Triggers -->
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Large Primary Button -->
+
+    <!--#endregion-->
+
+</ResourceDictionary>

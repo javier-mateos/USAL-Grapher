@@ -16,6 +16,10 @@
     <Color x:Key="BaseBackground">#121212</Color>
     <SolidColorBrush x:Key="BaseBackgroundBrush" Color="{StaticResource BaseBackground}"/>
 
+    <!-- Danger Color -->
+    <Color x:Key="Danger">#CF6679</Color>
+    <SolidColorBrush x:Key="DangerColorBrush" Color="{StaticResource Danger}"/>
+
     <!--#endregion-->
 
     

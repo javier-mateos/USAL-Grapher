@@ -1,2 +1,6 @@
 --> Material Design Dropshadows in WPF: http://web.archive.org/web/20170722144651/http://marcangers.com:80/material-design-shadows-in-wpf/
 --> Recomended WPF icon size: https://stackoverflow.com/questions/12901212/taskbar-ugly-icon-in-wpf-application
+--> ListBox and DataBinding: https://www.wpf-tutorial.com/list-controls/listbox-control/
+--> Button Styling: https://docs.microsoft.com/es-es/dotnet/desktop/wpf/controls/button-styles-and-templates
+--> Menu Styling: https://docs.microsoft.com/es-es/dotnet/desktop/wpf/controls/menu-styles-and-templates
+--> TabControl Styling: https://docs.microsoft.com/es-es/dotnet/desktop/wpf/controls/tabcontrol-styles-and-templates

@@ -31,6 +31,14 @@
         <Setter Property="Opacity" Value="0.87"/>
     </Style>
 
+    <!-- Subtitle 2 -->
+    <Style x:Key="TextSub2" TargetType="TextBlock" BasedOn="{StaticResource baseText}">
+        <Setter Property="FontFamily" Value="{StaticResource RobotoMedium}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Opacity" Value="0.87"/>
+    </Style>
+
     <!-- Caption -->
     <Style x:Key="TextCaption" TargetType="TextBlock" BasedOn="{StaticResource baseText}">
         <Setter Property="FontSize" Value="12"/>

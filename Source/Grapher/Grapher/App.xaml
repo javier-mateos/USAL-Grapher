@@ -12,9 +12,10 @@
                 <ResourceDictionary Source="Styles/Colors.xaml"/>
                 <ResourceDictionary Source="Styles/Fonts.xaml"/>
                 <ResourceDictionary Source="Styles/Typography.xaml"/>
-                <ResourceDictionary Source="Styles/Components.xaml"/>
+                <ResourceDictionary Source="Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="Styles/TabControl.xaml"/>
                 <ResourceDictionary Source="Styles/Menu.xaml"/>
+                <ResourceDictionary Source="Styles/ListBox.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

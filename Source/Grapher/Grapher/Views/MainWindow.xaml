@@ -82,7 +82,7 @@
 
         <!-- Side Panel -->
         <Border x:Name="sidePanel" DockPanel.Dock="Right" Panel.ZIndex="2"             
-                Width="350" Padding="32 32 32 48"
+                Width="400" Padding="32 32 32 48"
                 Background="{StaticResource 02dpBackgroundBrush}"
                 Effect="{StaticResource 02dpDropShadowDown}">
             
@@ -103,6 +103,110 @@
                 <!-- Graphs List -->
                 <ListBox Grid.Row="1" Margin="0 16 0 24">
 
+                    <!-- Graph Item Template -->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <ListBoxItem>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Arrows -->
+                            <StackPanel Grid.Column="0"
+                                        Orientation="Vertical"
+                                        Margin="10 16 16 16">
+                                
+                                <!-- Up Arrow -->
+                                <Button x:Name="upArrowGraphBtn"
+                                        Margin="0 0 0 10"
+                                        Style="{StaticResource transparentBtn}">
+                                    
+                                    <Image Source="/Images/Arrow.png" Height="8">
+                                        <Image.LayoutTransform>
+                                            <RotateTransform Angle="180"/>
+                                        </Image.LayoutTransform>
+                                    </Image>
+                                    
+                                </Button>
+
+                                <!-- Down Arrow -->
+                                <Button x:Name="downArrowGraphBtn"
+                                        Margin="0 10 0 0"
+                                        Style="{StaticResource transparentBtn}">
+                                    
+                                    <Image Source="/Images/Arrow.png" Height="8"/>
+                                    
+                                </Button>
+                                
+                            </StackPanel>
+                            
+                            <!-- Image + Tittle -->
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Margin="0 12">
+
+                                <Image Source="/Images/DummyImage.png" Height="46"/>
+
+                                <TextBlock Text="Grafica 1" Style="{StaticResource TextSub2}"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Margin="12 0"/>
+
+                            </StackPanel>
+                            
+                            <!-- Divider -->
+                            <Separator Grid.Column="2" Margin="0 10" Background="#1EFFFFFF">
+                                <Separator.LayoutTransform>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="90"/>
+                                        <ScaleTransform ScaleX="2"/>
+                                    </TransformGroup>
+                                </Separator.LayoutTransform>
+                            </Separator>
+
+                            <!-- Graph Buttons -->
+                            <StackPanel Grid.Column="3"
+                                        Orientation="Horizontal"
+                                        Margin="12 28">
+
+                                <!-- Visibillity Button -->
+                                <Button x:Name="visibillityGraphBtn"
+                                        Margin="0 0 10 0"
+                                        Style="{StaticResource transparentBtn}">
+                                    
+                                    <Image Source="/Images/VisibilityOn.png" Height="12"/>
+                                </Button>
+
+                                <!-- Edit Button -->
+                                <Button x:Name="editGraphBtn" Style="{StaticResource transparentBtn}">
+                                    <Image Source="/Images/Edit.png" Height="14"/>
+                                </Button>
+
+                                <!-- Delete Button -->
+                                <Button x:Name="deleteGraphBtn"
+                                        Margin="10 0 0 0"
+                                        Style="{StaticResource transparentBtn}">
+                                    
+                                    <Image Source="/Images/Delete.png" Height="14"/>
+                                </Button>
+
+                            </StackPanel>
+
+
+                        </Grid>
+                    </ListBoxItem>
+                    
                 </ListBox>
 
                 <!-- Add Graph Button -->
