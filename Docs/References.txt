@@ -4,3 +4,4 @@
 --> Button Styling: https://docs.microsoft.com/es-es/dotnet/desktop/wpf/controls/button-styles-and-templates
 --> Menu Styling: https://docs.microsoft.com/es-es/dotnet/desktop/wpf/controls/menu-styles-and-templates
 --> TabControl Styling: https://docs.microsoft.com/es-es/dotnet/desktop/wpf/controls/tabcontrol-styles-and-templates
+--> Dynamic TabControl Items: https://stackoverflow.com/questions/4058003/wpf-tabcontrol-datatemplates

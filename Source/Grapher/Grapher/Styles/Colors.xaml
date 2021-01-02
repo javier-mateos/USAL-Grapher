@@ -19,6 +19,14 @@
     <!-- Danger Color -->
     <Color x:Key="Danger">#CF6679</Color>
     <SolidColorBrush x:Key="DangerColorBrush" Color="{StaticResource Danger}"/>
+    
+    <!-- Primary Color Tint -->
+    <Color x:Key="PrimaryTint">#4b69ff</Color>
+    <SolidColorBrush x:Key="PrimaryTintColorBrush" Color="{StaticResource PrimaryTint}"/>
+
+    <!-- Primary Color Shade -->
+    <Color x:Key="PrimaryShade">#324fe6</Color>
+    <SolidColorBrush x:Key="PrimaryShadeColorBrush" Color="{StaticResource PrimaryShade}"/>
 
     <!--#endregion-->
 

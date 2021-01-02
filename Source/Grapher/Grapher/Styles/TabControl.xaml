@@ -49,7 +49,7 @@
     <!--#endregion-->
 
     <!--#region Project TabItem-->
-    <Style x:Key="projectTabItem" TargetType="{x:Type TabItem}">
+    <Style TargetType="{x:Type TabItem}">
         
         <!-- Colors-->
         <Setter Property="Foreground" Value="#60FFFFFF"/>

@@ -8,11 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/arrow.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/delete.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/dummyimage.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/edit.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/visibilityoff.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/visibilityon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/close.png")]
 
 

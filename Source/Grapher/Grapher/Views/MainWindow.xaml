@@ -101,120 +101,125 @@
                 </StackPanel>
 
                 <!-- Graphs List -->
-                <ListBox Grid.Row="1" Margin="0 16 0 24">
+                <ListBox x:Name="graphListBox" Grid.Row="1" Margin="0 16 0 24">
 
                     <!-- Graph Item Template -->
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                            <Grid>
 
-                    <ListBoxItem>
-                        <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <!-- Arrows -->
-                            <StackPanel Grid.Column="0"
+                                <!-- Arrows -->
+                                <StackPanel Grid.Column="0"
                                         Orientation="Vertical"
                                         Margin="10 16 16 16">
-                                
-                                <!-- Up Arrow -->
-                                <Button x:Name="upArrowGraphBtn"
+
+                                    <!-- Up Arrow -->
+                                    <Button x:Name="upArrowGraphBtn"
                                         Margin="0 0 0 10"
                                         Style="{StaticResource transparentBtn}">
-                                    
-                                    <Image Source="/Images/Arrow.png" Height="8">
-                                        <Image.LayoutTransform>
-                                            <RotateTransform Angle="180"/>
-                                        </Image.LayoutTransform>
-                                    </Image>
-                                    
-                                </Button>
 
-                                <!-- Down Arrow -->
-                                <Button x:Name="downArrowGraphBtn"
+                                        <Image Source="/Images/Arrow.png" Height="8">
+                                            <Image.LayoutTransform>
+                                                <RotateTransform Angle="180"/>
+                                            </Image.LayoutTransform>
+                                        </Image>
+
+                                    </Button>
+
+                                    <!-- Down Arrow -->
+                                    <Button x:Name="downArrowGraphBtn"
                                         Margin="0 10 0 0"
                                         Style="{StaticResource transparentBtn}">
-                                    
-                                    <Image Source="/Images/Arrow.png" Height="8"/>
-                                    
-                                </Button>
-                                
-                            </StackPanel>
-                            
-                            <!-- Image + Tittle -->
-                            <StackPanel Grid.Column="1"
+
+                                        <Image Source="/Images/Arrow.png" Height="8"/>
+
+                                    </Button>
+
+                                </StackPanel>
+
+                                <!-- Image + Tittle -->
+                                <StackPanel Grid.Column="1"
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Left"
                                         Margin="0 12">
 
-                                <Image Source="/Images/DummyImage.png" Height="46"/>
+                                    <Image Source="/Images/DummyImage.png" Height="46"/>
 
-                                <TextBlock Text="Grafica 1" Style="{StaticResource TextSub2}"
+                                    <TextBlock Text="{Binding GraphName}" Style="{StaticResource TextSub2}"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Center"
                                            Margin="12 0"/>
 
-                            </StackPanel>
-                            
-                            <!-- Divider -->
-                            <Separator Grid.Column="2" Margin="0 10" Background="#1EFFFFFF">
-                                <Separator.LayoutTransform>
-                                    <TransformGroup>
-                                        <RotateTransform Angle="90"/>
-                                        <ScaleTransform ScaleX="2"/>
-                                    </TransformGroup>
-                                </Separator.LayoutTransform>
-                            </Separator>
+                                </StackPanel>
 
-                            <!-- Graph Buttons -->
-                            <StackPanel Grid.Column="3"
+                                <!-- Divider -->
+                                <Separator Grid.Column="2" Margin="0 10" Background="#1EFFFFFF">
+                                    <Separator.LayoutTransform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="90"/>
+                                            <ScaleTransform ScaleX="2"/>
+                                        </TransformGroup>
+                                    </Separator.LayoutTransform>
+                                </Separator>
+
+                                <!-- Graph Buttons -->
+                                <StackPanel Grid.Column="3"
                                         Orientation="Horizontal"
                                         Margin="12 28">
 
-                                <!-- Visibillity Button -->
-                                <Button x:Name="visibillityGraphBtn"
+                                    <!-- Visibillity Button -->
+                                    <Button x:Name="visibillityGraphBtn"
                                         Margin="0 0 10 0"
                                         Style="{StaticResource transparentBtn}">
-                                    
-                                    <Image Source="/Images/VisibilityOn.png" Height="12"/>
-                                </Button>
 
-                                <!-- Edit Button -->
-                                <Button x:Name="editGraphBtn" Style="{StaticResource transparentBtn}">
-                                    <Image Source="/Images/Edit.png" Height="14"/>
-                                </Button>
+                                        <Image Source="/Images/VisibilityOn.png" Height="12"/>
+                                    </Button>
 
-                                <!-- Delete Button -->
-                                <Button x:Name="deleteGraphBtn"
+                                    <!-- Edit Button -->
+                                    <Button x:Name="editGraphBtn" Style="{StaticResource transparentBtn}">
+                                        <Image Source="/Images/Edit.png" Height="14"/>
+                                    </Button>
+
+                                    <!-- Delete Button -->
+                                    <Button x:Name="deleteGraphBtn"
                                         Margin="10 0 0 0"
                                         Style="{StaticResource transparentBtn}">
-                                    
-                                    <Image Source="/Images/Delete.png" Height="14"/>
-                                </Button>
 
-                            </StackPanel>
+                                        <Image Source="/Images/Delete.png" Height="14"/>
+                                    </Button>
+
+                                </StackPanel>
 
 
-                        </Grid>
-                    </ListBoxItem>
-                    
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
                 </ListBox>
 
                 <!-- Add Graph Button -->
-                <Button Grid.Row="2">
+                <Button x:Name="addGraphBtn" Click="addGraphBtn_Click"
+                        Grid.Row="2"
+                        Style="{StaticResource primaryBtn}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Images/Add.png" Height="14" Margin="0 0 10 0"/>
-                            <TextBlock Text="ADD" Style="{StaticResource TextButton}"/>
+                            
+                            <Image Source="/Images/Add.png"
+                                   Height="14" Margin="0 0 10 1"/>
+                            
+                            <TextBlock Text="ADD"
+                                       Style="{StaticResource TextButton}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"/>
+                            
                         </StackPanel>
                     </Button.Content>
                 </Button>
@@ -227,19 +232,40 @@
         <TabControl x:Name="projectsTab" Panel.ZIndex="1"
                     Style="{StaticResource projectsTabControl}">
 
-            <TabItem Style="{StaticResource projectTabItem}">
-                <TabItem.Header>
-                    Project 1
-                </TabItem.Header>
+            <!-- TabItem Header Template -->
+            <TabControl.ItemTemplate >
+                <DataTemplate>
+                    <Grid>
 
-            </TabItem>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <TabItem Style="{StaticResource projectTabItem}">
-                <TabItem.Header>
-                    Project 2
-                </TabItem.Header>
+                        <!-- Project Name -->
+                        <TextBlock Grid.Column="0" Text="{Binding ProjectName}"/>
 
-            </TabItem>
+                        <!-- CloseTab Button Name -->
+                        <Button x:Name="closeProjectBtn" Grid.Column="1"
+                                Margin="16 0 0 0"
+                                Style="{StaticResource transparentBtn}"
+                                Click="closeProjectBtn_Click">
+
+                            <Image Source="/Images/Close.png" Height="12"/>
+                        </Button>
+
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <!-- TabItem Content Template -->
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+
+                    <Canvas x:Name="projectCanvas"/>
+
+                </DataTemplate>
+            </TabControl.ContentTemplate>
 
         </TabControl>
 
