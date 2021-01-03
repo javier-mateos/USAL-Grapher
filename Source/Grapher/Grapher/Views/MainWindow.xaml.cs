@@ -8,6 +8,8 @@ namespace Grapher
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new MainWindowViewModel();
         }
 
         private void swapPanelsMenuItem_Click(object sender, RoutedEventArgs e)
@@ -21,16 +23,6 @@ namespace Grapher
         private void exitMenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void addGraphBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void closeProjectBtn_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

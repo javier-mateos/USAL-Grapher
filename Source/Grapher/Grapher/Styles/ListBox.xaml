@@ -24,7 +24,7 @@
 
                         <!-- ListBox Content -->
                         <ScrollViewer Margin="0" Focusable="false">
-                            <StackPanel Margin="4" IsItemsHost="True" />
+                            <StackPanel Margin="0 2" IsItemsHost="True" />
                         </ScrollViewer>
                         
                     </Border>
@@ -58,7 +58,8 @@
                 <ControlTemplate TargetType="ListBoxItem">
                     <Border x:Name="Border"
                             Background="{StaticResource 03dpBackgroundBrush}"
-                            SnapsToDevicePixels="true">
+                            SnapsToDevicePixels="true"
+                            Margin="4 2">
 
                         <!-- ListBox Item Content-->
                         <ContentPresenter />

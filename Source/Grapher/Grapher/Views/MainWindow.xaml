@@ -56,7 +56,7 @@
 
             <!-- Edit -->
             <MenuItem Header="Edit">
-                <MenuItem Header="Pepe"/>
+                <MenuItem Header="TestItem"/>
             </MenuItem>
 
             <!-- View -->
@@ -66,7 +66,7 @@
 
             <!-- Help -->
             <MenuItem Header="Help">
-                <MenuItem Header="Pepe2"/>
+                <MenuItem Header="TestItem"/>
             </MenuItem>
 
         </Menu>
@@ -101,7 +101,10 @@
                 </StackPanel>
 
                 <!-- Graphs List -->
-                <ListBox x:Name="graphListBox" Grid.Row="1" Margin="0 16 0 24">
+                <ListBox x:Name="graphListBox"
+                         ItemsSource="{Binding ElementName=projectsTab, Path=SelectedItem.Graphs}"
+                         Grid.Row="1"
+                         Margin="0 16 0 24">
 
                     <!-- Graph Item Template -->
                     <ListBox.ItemTemplate>
@@ -153,7 +156,7 @@
 
                                     <Image Source="/Images/DummyImage.png" Height="46"/>
 
-                                    <TextBlock Text="{Binding GraphName}" Style="{StaticResource TextSub2}"
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource TextSub2}"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Center"
                                            Margin="12 0"/>
@@ -177,8 +180,8 @@
 
                                     <!-- Visibillity Button -->
                                     <Button x:Name="visibillityGraphBtn"
-                                        Margin="0 0 10 0"
-                                        Style="{StaticResource transparentBtn}">
+                                            Margin="0 0 10 0"
+                                            Style="{StaticResource transparentBtn}">
 
                                         <Image Source="/Images/VisibilityOn.png" Height="12"/>
                                     </Button>
@@ -206,9 +209,10 @@
                 </ListBox>
 
                 <!-- Add Graph Button -->
-                <Button x:Name="addGraphBtn" Click="addGraphBtn_Click"
+                <Button x:Name="addGraphBtn"
                         Grid.Row="2"
                         Style="{StaticResource primaryBtn}">
+                    
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             
@@ -228,12 +232,13 @@
 
         </Border>
 
-        <!-- Graph Canvas -->
+        <!-- Tabs & Graph Canvas -->
         <TabControl x:Name="projectsTab" Panel.ZIndex="1"
-                    Style="{StaticResource projectsTabControl}">
+                    Style="{StaticResource projectsTabControl}"
+                    ItemsSource="{Binding Projects}">
 
             <!-- TabItem Header Template -->
-            <TabControl.ItemTemplate >
+            <TabControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
 
@@ -243,13 +248,12 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- Project Name -->
-                        <TextBlock Grid.Column="0" Text="{Binding ProjectName}"/>
+                        <TextBlock Grid.Column="0" Text="{Binding Name}"/>
 
                         <!-- CloseTab Button Name -->
                         <Button x:Name="closeProjectBtn" Grid.Column="1"
                                 Margin="16 0 0 0"
-                                Style="{StaticResource transparentBtn}"
-                                Click="closeProjectBtn_Click">
+                                Style="{StaticResource transparentBtn}">
 
                             <Image Source="/Images/Close.png" Height="12"/>
                         </Button>
