@@ -67,6 +67,7 @@
     <Compile Include="Models\Data\Graph.cs" />
     <Compile Include="Models\Data\Project.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Views\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>

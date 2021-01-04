@@ -10,5 +10,7 @@ namespace Grapher
         /// Graph Name
         /// </summary>
         public string Name { get; set; }
+
+        public bool IsVisible { get; set; }
     }
 }

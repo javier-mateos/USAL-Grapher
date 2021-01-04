@@ -21,8 +21,8 @@
 
                 <!-- New -->
                 <MenuItem Header="New">
-                    <MenuItem Header="Project"/>
-                    <MenuItem Header="Graph"/>
+                    <MenuItem Header="Project" Command="{Binding NewProject}"/>
+                    <MenuItem Header="Graph" Command="{Binding NewGraph}"/>
                 </MenuItem>
 
                 <!-- Open -->
@@ -39,7 +39,7 @@
                 <Separator/>
 
                 <!-- Close -->
-                <MenuItem Header="Close"/>
+                <MenuItem Header="Close" Command="{Binding CloseProject}"/>
                 <MenuItem Header="Close all"/>
 
                 <Separator/>
@@ -102,9 +102,10 @@
 
                 <!-- Graphs List -->
                 <ListBox x:Name="graphListBox"
-                         ItemsSource="{Binding ElementName=projectsTab, Path=SelectedItem.Graphs}"
                          Grid.Row="1"
-                         Margin="0 16 0 24">
+                         Margin="0 16 0 24"
+                         ItemsSource="{Binding ElementName=projectsTab, Path=SelectedItem.Graphs}"
+                         SelectedIndex="{Binding SelectedGraphIndex}">
 
                     <!-- Graph Item Template -->
                     <ListBox.ItemTemplate>
@@ -125,8 +126,10 @@
 
                                     <!-- Up Arrow -->
                                     <Button x:Name="upArrowGraphBtn"
-                                        Margin="0 0 0 10"
-                                        Style="{StaticResource transparentBtn}">
+                                            Margin="0 0 0 10"
+                                            Style="{StaticResource transparentBtn}"
+                                            Command="{Binding DataContext.MoveUpGraph, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}">
 
                                         <Image Source="/Images/Arrow.png" Height="8">
                                             <Image.LayoutTransform>
@@ -138,8 +141,10 @@
 
                                     <!-- Down Arrow -->
                                     <Button x:Name="downArrowGraphBtn"
-                                        Margin="0 10 0 0"
-                                        Style="{StaticResource transparentBtn}">
+                                            Margin="0 10 0 0"
+                                            Style="{StaticResource transparentBtn}"
+                                            Command="{Binding DataContext.MoveDownGraph, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}">
 
                                         <Image Source="/Images/Arrow.png" Height="8"/>
 
@@ -175,8 +180,8 @@
 
                                 <!-- Graph Buttons -->
                                 <StackPanel Grid.Column="3"
-                                        Orientation="Horizontal"
-                                        Margin="12 28">
+                                            Orientation="Horizontal"
+                                            Margin="12 28">
 
                                     <!-- Visibillity Button -->
                                     <Button x:Name="visibillityGraphBtn"
@@ -193,8 +198,10 @@
 
                                     <!-- Delete Button -->
                                     <Button x:Name="deleteGraphBtn"
-                                        Margin="10 0 0 0"
-                                        Style="{StaticResource transparentBtn}">
+                                            Margin="10 0 0 0"
+                                            Style="{StaticResource transparentBtn}"
+                                            Command="{Binding Path=DataContext.DeleteGraph, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}">
 
                                         <Image Source="/Images/Delete.png" Height="14"/>
                                     </Button>
@@ -211,7 +218,8 @@
                 <!-- Add Graph Button -->
                 <Button x:Name="addGraphBtn"
                         Grid.Row="2"
-                        Style="{StaticResource primaryBtn}">
+                        Style="{StaticResource primaryBtn}"
+                        Command="{Binding NewGraph}">
                     
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
@@ -235,7 +243,8 @@
         <!-- Tabs & Graph Canvas -->
         <TabControl x:Name="projectsTab" Panel.ZIndex="1"
                     Style="{StaticResource projectsTabControl}"
-                    ItemsSource="{Binding Projects}">
+                    ItemsSource="{Binding Projects}"
+                    SelectedIndex="{Binding SelectedProjectIndex, Mode=TwoWay}">
 
             <!-- TabItem Header Template -->
             <TabControl.ItemTemplate>
@@ -253,7 +262,9 @@
                         <!-- CloseTab Button Name -->
                         <Button x:Name="closeProjectBtn" Grid.Column="1"
                                 Margin="16 0 0 0"
-                                Style="{StaticResource transparentBtn}">
+                                Style="{StaticResource transparentBtn}" 
+                                Command="{Binding Path=DataContext.CloseProject, RelativeSource={RelativeSource AncestorType=Window}}"
+                                CommandParameter="{Binding}">
 
                             <Image Source="/Images/Close.png" Height="12"/>
                         </Button>

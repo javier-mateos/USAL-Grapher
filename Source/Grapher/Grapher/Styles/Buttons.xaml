@@ -44,7 +44,15 @@
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-                                
+
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush.Color" Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#60FFFFFF"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
@@ -93,7 +101,15 @@
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-
+                           
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Background.Color" Storyboard.TargetName="Border">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#60FFFFFF"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 

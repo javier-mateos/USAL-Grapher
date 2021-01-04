@@ -16,5 +16,10 @@ namespace Grapher
         /// Projects Graphs
         /// </summary>
         public ObservableCollection<Graph> Graphs { get; set; }
+
+        public Project()
+        {
+            Graphs = new ObservableCollection<Graph>();
+        }
     }
 }
