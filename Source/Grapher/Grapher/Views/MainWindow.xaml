@@ -186,7 +186,9 @@
                                     <!-- Visibillity Button -->
                                     <Button x:Name="visibillityGraphBtn"
                                             Margin="0 0 10 0"
-                                            Style="{StaticResource transparentBtn}">
+                                            Style="{StaticResource transparentBtn}"
+                                            Command="{Binding Path=DataContext.TogleVisibilityGraph, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}">
 
                                         <Image Source="/Images/VisibilityOn.png" Height="12"/>
                                     </Button>

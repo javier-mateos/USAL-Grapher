@@ -21,15 +21,10 @@ namespace Grapher
         public ICommand NewGraph { get; set; }
         public ICommand MoveUpGraph { get; set; }
         public ICommand MoveDownGraph { get; set; }
+        public ICommand TogleVisibilityGraph { get; set; }
         public ICommand DeleteGraph { get; set; }
 
         #endregion
-
-
-        #region Private Members
-
-        #endregion
-
 
         #region Public Members
 
@@ -50,11 +45,14 @@ namespace Grapher
             NewGraph = new RelayCommand<object>(NewGraphExecute, NewGraphCanExecute);
             MoveUpGraph = new RelayCommand<object>(MoveUpGraphExecute, MoveUpGraphCanExecute);
             MoveDownGraph = new RelayCommand<object>(MoveDownGraphExecute, MoveDownGraphCanExecute);
+            TogleVisibilityGraph = new RelayCommand<object>(TogleVisibilityGraphExecute, TogleVisibilityGraphCanExecute);
             DeleteGraph = new RelayCommand<object>(DeleteGraphExecute, DeleteGraphCanExecute);
 
             Projects = new ObservableCollection<Project>();
             rnd = new Random();
         }
+
+        #region Project Commands
 
         private bool NewProjectCanExecute(object obj)
         {
@@ -86,32 +84,33 @@ namespace Grapher
             Projects.Clear();
         }
 
+        #endregion
+
+
+        #region Graph Commands
 
         private bool NewGraphCanExecute(object obj)
         {
-            return (Projects.Count > 0 ? true : false);
+            return (Projects.Count > 0 && SelectedProjectIndex != -1) ? true : false;
         }
 
         private void NewGraphExecute(object obj)
-        {
+        {   
             Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "Test Graph " + rnd.Next(10) });
         }
 
         private bool MoveUpGraphCanExecute(object obj)
         {
-            if (Projects.Count <= 0)
+            if (Projects.Count <= 0 || SelectedProjectIndex == -1)
                 return false;
 
             int graphIndex = Projects[SelectedProjectIndex].Graphs.IndexOf((Graph)obj);
 
-            return graphIndex > 0 ? true : false;
+            return (graphIndex > 0) ? true : false;
         }
 
         private void MoveUpGraphExecute(object obj)
         {
-            if (Projects.Count <= 0)
-                return;
-
             int graphIndex = Projects[SelectedProjectIndex].Graphs.IndexOf((Graph)obj); ;
             Graph temp = Projects[SelectedProjectIndex].Graphs[graphIndex];
             
@@ -121,19 +120,16 @@ namespace Grapher
 
         private bool MoveDownGraphCanExecute(object obj)
         {
-            if (Projects.Count <= 0)
+            if (Projects.Count <= 0 || SelectedProjectIndex == -1)
                 return false;
 
             int graphIndex = Projects[SelectedProjectIndex].Graphs.IndexOf((Graph)obj);
 
-            return graphIndex < Projects[SelectedProjectIndex].Graphs.Count - 1 ? true : false;
+            return (graphIndex < Projects[SelectedProjectIndex].Graphs.Count - 1) ? true : false;
         }
 
         private void MoveDownGraphExecute(object obj)
         {
-            if (Projects.Count <= 0)
-                return;
-
             int graphIndex = Projects[SelectedProjectIndex].Graphs.IndexOf((Graph)obj); ;
             Graph temp = Projects[SelectedProjectIndex].Graphs[graphIndex];
 
@@ -141,14 +137,35 @@ namespace Grapher
             Projects[SelectedProjectIndex].Graphs[graphIndex + 1] = temp;
         }
 
+        private bool TogleVisibilityGraphCanExecute(object obj)
+        {
+            if (Projects.Count <= 0 || SelectedProjectIndex == -1)
+                return false;
+
+            return (Projects[SelectedProjectIndex].Graphs.Count > 0) ? true : false;
+        }
+
+        private void TogleVisibilityGraphExecute(object obj)
+        {
+            if (((Graph)obj).IsVisible)
+                ((Graph)obj).IsVisible = false;
+            else
+                ((Graph)obj).IsVisible = true;
+        }
+
         private bool DeleteGraphCanExecute(object obj)
         {
-            return (Projects.Count > 0 && Projects[SelectedProjectIndex].Graphs.Count > 0 ? true : false);
+            if (Projects.Count <= 0 || SelectedProjectIndex == -1)
+                return false;
+
+            return (Projects[SelectedProjectIndex].Graphs.Count > 0) ? true : false;
         }
 
         private void DeleteGraphExecute(object obj)
         {
             Projects[SelectedProjectIndex].Graphs.Remove((Graph)obj);
         }
+
+        #endregion
     }
 }
