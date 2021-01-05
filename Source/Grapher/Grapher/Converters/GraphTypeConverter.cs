@@ -13,10 +13,10 @@ namespace Grapher
             switch((GraphType)value)
             {
                 case GraphType.LineGraph:
-                    newImage = new Uri("/Images/VisibilityOn.png", UriKind.Relative);
+                    newImage = new Uri("/Images/DummyImage.png", UriKind.Relative);
                     break;
                 case GraphType.BarGraph:
-                    newImage = new Uri("/Images/VisibilityOn.png", UriKind.Relative);
+                    newImage = new Uri("/Images/DummyImage.png", UriKind.Relative);
                     break;
                 default:
                     newImage = new Uri("/Images/DummyImage.png", UriKind.Relative);

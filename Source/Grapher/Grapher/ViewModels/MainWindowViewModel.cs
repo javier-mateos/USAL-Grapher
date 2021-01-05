@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
+using System.Windows.Shapes;
 
 namespace Grapher
 {
@@ -26,18 +26,25 @@ namespace Grapher
 
         #endregion
 
+
         #region Public Members
 
         public int SelectedProjectIndex { get; set; } = 0;
-        public int SelectedGraphIndex { get; set; } = 0;
 
 
         public ObservableCollection<Project> Projects { get; set; }
 
+        public ObservableCollection<Shape> CanvasDataTranslation { get; set; }
+
         #endregion
 
+
+        #region Constructor
         public MainWindowViewModel()
         {
+            /* Temp */
+            rnd = new Random();
+
             NewProject = new RelayCommand<object>(NewProjectExecute, NewProjectCanExecute);
             CloseProject = new RelayCommand<object>(CloseProjectExecute, CloseProjectCanExecute);
             CloseAllProjects = new RelayCommand<object>(CloseAllProjectsExecute, CloseAllProjectsCanExecute);
@@ -49,8 +56,11 @@ namespace Grapher
             DeleteGraph = new RelayCommand<object>(DeleteGraphExecute, DeleteGraphCanExecute);
 
             Projects = new ObservableCollection<Project>();
-            rnd = new Random();
+            CanvasDataTranslation = new ObservableCollection<Shape>();
+
         }
+        #endregion
+
 
         #region Project Commands
 
@@ -96,6 +106,8 @@ namespace Grapher
 
         private void NewGraphExecute(object obj)
         {   
+
+
             Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "Test Graph " + rnd.Next(10) });
         }
 
@@ -164,6 +176,46 @@ namespace Grapher
         private void DeleteGraphExecute(object obj)
         {
             Projects[SelectedProjectIndex].Graphs.Remove((Graph)obj);
+        }
+
+        #endregion
+
+
+        #region Canvas Functions
+
+        void canvasTranslation()
+        {
+            if (SelectedProjectIndex == -1)
+                return;
+
+            foreach (Graph graph in Projects[SelectedProjectIndex].Graphs)
+            {
+                switch (graph.Type)
+                {
+                    case GraphType.LineGraph:
+
+                        Polyline newLine = new Polyline();
+
+                        foreach (Point2D point in graph.Points)
+                        {
+                            newLine.Points.Add(new System.Windows.Point { X = point.XValue, Y = point.YValue });
+                        }
+
+                        CanvasDataTranslation.Add(newLine);
+
+                        break;
+
+                    case GraphType.BarGraph:
+
+
+
+                        break;
+
+                    default:
+                        return;
+                }
+            }
+            
         }
 
         #endregion

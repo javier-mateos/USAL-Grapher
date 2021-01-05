@@ -66,11 +66,16 @@
     </ApplicationDefinition>
     <Compile Include="Converters\GraphTypeConverter.cs" />
     <Compile Include="Converters\GraphVisibilityConverter.cs" />
+    <Compile Include="Models\Data\Point2D.cs" />
     <Compile Include="Models\Data\Graph.cs" />
     <Compile Include="Models\Data\GraphType.cs" />
     <Compile Include="Models\Data\Project.cs" />
+    <Compile Include="ViewModels\AddGraphWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="Views\AddGraphWindow.xaml.cs">
+      <DependentUpon>AddGraphWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
@@ -98,7 +103,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Typography.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddGraphWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

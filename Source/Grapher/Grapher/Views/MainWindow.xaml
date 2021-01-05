@@ -112,8 +112,7 @@
                 <ListBox x:Name="graphListBox"
                          Grid.Row="1"
                          Margin="0 16 0 24"
-                         ItemsSource="{Binding ElementName=projectsTab, Path=SelectedItem.Graphs}"
-                         SelectedIndex="{Binding SelectedGraphIndex}">
+                         ItemsSource="{Binding ElementName=projectsTab, Path=SelectedItem.Graphs}">
 
                     <!-- Graph Item Template -->
                     <ListBox.ItemTemplate>
@@ -194,11 +193,13 @@
                                     <!-- Visibillity Button -->
                                     <Button x:Name="visibillityGraphBtn"
                                             Margin="0 0 10 0"
-                                            Style="{StaticResource transparentBtn}"
+                                            Style="{StaticResource transparentBtn}" HorizontalAlignment="Center" VerticalAlignment="Center"
                                             Command="{Binding Path=DataContext.TogleVisibilityGraph, RelativeSource={RelativeSource AncestorType=Window}}"
                                             CommandParameter="{Binding}">
 
-                                        <Image Source="{Binding Path=IsVisible, Converter={StaticResource GraphVisibilityConverter}}" Height="12"/>
+                                        <Image Source="{Binding Path=IsVisible, Converter={StaticResource GraphVisibilityConverter}}"
+                                               Height="12"/>
+                                        
                                     </Button>
 
                                     <!-- Edit Button -->
@@ -228,7 +229,7 @@
                 <!-- Add Graph Button -->
                 <Button x:Name="addGraphBtn"
                         Grid.Row="2"
-                        Style="{StaticResource primaryBtn}"
+                        Style="{StaticResource largePrimaryBtn}"
                         Command="{Binding NewGraph}">
                     
                     <Button.Content>
@@ -287,7 +288,13 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
 
-                    <Canvas x:Name="projectCanvas"/>
+                    <ItemsControl ItemsSource="{Binding Path=DataContext.CanvasDataTranslation, RelativeSource={RelativeSource AncestorType=Window}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas Background="AliceBlue"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
 
                 </DataTemplate>
             </TabControl.ContentTemplate>
