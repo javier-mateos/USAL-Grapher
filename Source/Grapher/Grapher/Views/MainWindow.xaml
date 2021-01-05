@@ -11,6 +11,14 @@
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
 
+    <Window.Resources>
+
+        <!-- Value Converters -->
+        <local:GraphVisibilityConverter x:Key="GraphVisibilityConverter"/>
+        <local:GraphTypeConverter x:Key="GraphTypeConverter"/>
+
+    </Window.Resources>
+
     <DockPanel x:Name="dockPanel">
 
         <!-- Menu Bar -->
@@ -152,14 +160,14 @@
 
                                 </StackPanel>
 
-                                <!-- Image + Tittle -->
+                                <!-- Image + Title -->
                                 <StackPanel Grid.Column="1"
                                         Orientation="Horizontal"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Left"
                                         Margin="0 12">
 
-                                    <Image Source="/Images/DummyImage.png" Height="46"/>
+                                    <Image Source="{Binding Path=Type, Converter={StaticResource GraphTypeConverter}}" Height="46"/>
 
                                     <TextBlock Text="{Binding Name}" Style="{StaticResource TextSub2}"
                                            HorizontalAlignment="Left"
@@ -190,7 +198,7 @@
                                             Command="{Binding Path=DataContext.TogleVisibilityGraph, RelativeSource={RelativeSource AncestorType=Window}}"
                                             CommandParameter="{Binding}">
 
-                                        <Image Source="/Images/VisibilityOn.png" Height="12"/>
+                                        <Image Source="{Binding Path=IsVisible, Converter={StaticResource GraphVisibilityConverter}}" Height="12"/>
                                     </Button>
 
                                     <!-- Edit Button -->

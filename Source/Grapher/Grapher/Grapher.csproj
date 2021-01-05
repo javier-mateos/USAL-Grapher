@@ -64,7 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\GraphTypeConverter.cs" />
+    <Compile Include="Converters\GraphVisibilityConverter.cs" />
     <Compile Include="Models\Data\Graph.cs" />
+    <Compile Include="Models\Data\GraphType.cs" />
     <Compile Include="Models\Data\Project.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />

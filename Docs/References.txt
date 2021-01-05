@@ -7,3 +7,4 @@
 --> Dynamic TabControl Items: https://stackoverflow.com/questions/4058003/wpf-tabcontrol-datatemplates
 --> WPF/MVVM Commands: https://www.wpf-tutorial.com/commands/using-commands/
 --> Relay Commands: https://stackoverflow.com/questions/48527651/full-implementation-of-relay-command-can-it-be-applied-to-all-cases
+--> IValueConverter: https://www.wpf-tutorial.com/data-binding/value-conversion-with-ivalueconverter/
