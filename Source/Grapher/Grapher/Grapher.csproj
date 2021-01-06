@@ -70,11 +70,10 @@
     <Compile Include="Models\Data\Graph.cs" />
     <Compile Include="Models\Data\GraphType.cs" />
     <Compile Include="Models\Data\Project.cs" />
-    <Compile Include="ViewModels\AddGraphWindowViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="Views\AddGraphWindow.xaml.cs">
-      <DependentUpon>AddGraphWindow.xaml</DependentUpon>
+    <Compile Include="Views\EditGraphWindow.xaml.cs">
+      <DependentUpon>EditGraphWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
@@ -84,6 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,7 +114,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddGraphWindow.xaml">
+    <Page Include="Views\EditGraphWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

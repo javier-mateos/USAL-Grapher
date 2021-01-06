@@ -6,7 +6,7 @@ using System.Windows.Shapes;
 
 namespace Grapher
 {
-    class MainWindowViewModel : INotifyPropertyChanged
+    class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -40,7 +40,7 @@ namespace Grapher
 
 
         #region Constructor
-        public MainWindowViewModel()
+        public MainViewModel()
         {
             /* Temp */
             rnd = new Random();

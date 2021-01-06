@@ -9,7 +9,6 @@
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="MinWidth" Value="120" />
         <Setter Property="MinHeight" Value="32" />
         <Setter Property="AllowDrop" Value="true" />
         
@@ -18,6 +17,7 @@
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
                     <Border Name="Border"
                             Padding="12 6"
+                            CornerRadius="3"
                             Background="{StaticResource 01dpBackgroundBrush}">
 
                         <!-- TextBox Visual States -->
@@ -36,8 +36,8 @@
                                 
                                 <VisualState x:Name="ReadOnly">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color">
-                                            <EasingColorKeyFrame KeyTime="0" Value="#60FFFFFF" />
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="BorderBrush.Color">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource Primary}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>

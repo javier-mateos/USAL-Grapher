@@ -47,6 +47,14 @@
         <Setter Property="Opacity" Value="0.87"/>
     </Style>
 
+    <!-- Form Label -->
+    <Style x:Key="FormLabel" TargetType="TextBlock" BasedOn="{StaticResource baseText}">
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Opacity" Value="0.6"/>
+    </Style>
+
     <!-- Caption -->
     <Style x:Key="TextCaption" TargetType="TextBlock" BasedOn="{StaticResource baseText}">
         <Setter Property="FontSize" Value="12"/>

@@ -9,7 +9,7 @@ namespace Grapher
         {
             InitializeComponent();
 
-            this.DataContext = new MainWindowViewModel();
+            this.DataContext = new MainViewModel();
         }
 
         private void swapPanelsMenuItem_Click(object sender, RoutedEventArgs e)
