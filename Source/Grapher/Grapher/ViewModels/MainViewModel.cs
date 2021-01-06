@@ -19,10 +19,12 @@ namespace Grapher
         public ICommand CloseAllProjects { get; set; }
 
         public ICommand NewGraph { get; set; }
+        public ICommand EditGraph { get; set; }
+        public ICommand DeleteGraph { get; set; }
         public ICommand MoveUpGraph { get; set; }
         public ICommand MoveDownGraph { get; set; }
         public ICommand TogleVisibilityGraph { get; set; }
-        public ICommand DeleteGraph { get; set; }
+        
 
         #endregion
 
@@ -50,10 +52,12 @@ namespace Grapher
             CloseAllProjects = new RelayCommand<object>(CloseAllProjectsExecute, CloseAllProjectsCanExecute);
 
             NewGraph = new RelayCommand<object>(NewGraphExecute, NewGraphCanExecute);
+            EditGraph = new RelayCommand<object>(EditGraphExecute, EditGraphCanExecute);
+            DeleteGraph = new RelayCommand<object>(DeleteGraphExecute, DeleteGraphCanExecute);
             MoveUpGraph = new RelayCommand<object>(MoveUpGraphExecute, MoveUpGraphCanExecute);
             MoveDownGraph = new RelayCommand<object>(MoveDownGraphExecute, MoveDownGraphCanExecute);
             TogleVisibilityGraph = new RelayCommand<object>(TogleVisibilityGraphExecute, TogleVisibilityGraphCanExecute);
-            DeleteGraph = new RelayCommand<object>(DeleteGraphExecute, DeleteGraphCanExecute);
+            
 
             Projects = new ObservableCollection<Project>();
             CanvasDataTranslation = new ObservableCollection<Shape>();
@@ -107,8 +111,36 @@ namespace Grapher
         private void NewGraphExecute(object obj)
         {   
 
-
             Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "Test Graph " + rnd.Next(10) });
+        }
+
+        private bool EditGraphCanExecute(object obj)
+        {
+            if (Projects.Count <= 0 || SelectedProjectIndex == -1)
+                return false;
+
+            return (Projects[SelectedProjectIndex].Graphs.Count > 0) ? true : false;
+        }
+
+        private void EditGraphExecute(object obj)
+        {
+            EditGraphWindow wnd = new EditGraphWindow();
+
+            wnd.DataContext = (Graph)obj;
+            wnd.Show();
+        }
+
+        private bool DeleteGraphCanExecute(object obj)
+        {
+            if (Projects.Count <= 0 || SelectedProjectIndex == -1)
+                return false;
+
+            return (Projects[SelectedProjectIndex].Graphs.Count > 0) ? true : false;
+        }
+
+        private void DeleteGraphExecute(object obj)
+        {
+            Projects[SelectedProjectIndex].Graphs.Remove((Graph)obj);
         }
 
         private bool MoveUpGraphCanExecute(object obj)
@@ -163,19 +195,6 @@ namespace Grapher
                 ((Graph)obj).IsVisible = false;
             else
                 ((Graph)obj).IsVisible = true;
-        }
-
-        private bool DeleteGraphCanExecute(object obj)
-        {
-            if (Projects.Count <= 0 || SelectedProjectIndex == -1)
-                return false;
-
-            return (Projects[SelectedProjectIndex].Graphs.Count > 0) ? true : false;
-        }
-
-        private void DeleteGraphExecute(object obj)
-        {
-            Projects[SelectedProjectIndex].Graphs.Remove((Graph)obj);
         }
 
         #endregion

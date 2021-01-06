@@ -166,12 +166,14 @@
                                         HorizontalAlignment="Left"
                                         Margin="0 12">
 
-                                    <Image Source="{Binding Path=Type, Converter={StaticResource GraphTypeConverter}}" Height="46"/>
+                                    <Image Source="{Binding Path=Type, Converter={StaticResource GraphTypeConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                           Height="46"/>
 
-                                    <TextBlock Text="{Binding Name}" Style="{StaticResource TextSub2}"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Center"
-                                           Margin="12 0"/>
+                                    <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                                               Style="{StaticResource TextSub2}"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="12 0"/>
 
                                 </StackPanel>
 
@@ -203,7 +205,10 @@
                                     </Button>
 
                                     <!-- Edit Button -->
-                                    <Button x:Name="editGraphBtn" Style="{StaticResource transparentBtn}">
+                                    <Button x:Name="editGraphBtn" Style="{StaticResource transparentBtn}"
+                                            Command="{Binding Path=DataContext.EditGraph, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}">
+                                        
                                         <Image Source="/Images/Edit.png" Height="14"/>
                                     </Button>
 

@@ -66,10 +66,12 @@
     </ApplicationDefinition>
     <Compile Include="Converters\GraphTypeConverter.cs" />
     <Compile Include="Converters\GraphVisibilityConverter.cs" />
-    <Compile Include="Models\Data\Point2D.cs" />
-    <Compile Include="Models\Data\Graph.cs" />
-    <Compile Include="Models\Data\GraphType.cs" />
-    <Compile Include="Models\Data\Project.cs" />
+    <Compile Include="Model\Data\Point2D.cs" />
+    <Compile Include="Model\Data\Graph.cs" />
+    <Compile Include="Model\Data\GraphType.cs" />
+    <Compile Include="Model\Data\Project.cs" />
+    <Compile Include="Model\Helpers\EnumBindingSourceExtension.cs" />
+    <Compile Include="Model\Helpers\EnumDescriptionTypeConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Views\EditGraphWindow.xaml.cs">
