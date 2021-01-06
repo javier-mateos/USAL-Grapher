@@ -124,10 +124,7 @@ namespace Grapher
 
         private void EditGraphExecute(object obj)
         {
-            EditGraphWindow wnd = new EditGraphWindow();
-
-            wnd.DataContext = (Graph)obj;
-            wnd.Show();
+            EditGraphViewModel editVM = new EditGraphViewModel((Graph)obj);
         }
 
         private bool DeleteGraphCanExecute(object obj)

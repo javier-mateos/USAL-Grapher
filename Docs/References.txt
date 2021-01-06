@@ -9,3 +9,4 @@
 --> Relay Commands: https://stackoverflow.com/questions/48527651/full-implementation-of-relay-command-can-it-be-applied-to-all-cases
 --> IValueConverter: https://www.wpf-tutorial.com/data-binding/value-conversion-with-ivalueconverter/
 --> Bind Enum to ComboBox: https://brianlagunas.com/a-better-way-to-data-bind-enums-in-wpf/
+--> Data Validation with Bindigs: https://blog.magnusmontin.net/2013/08/26/data-validation-in-wpf/

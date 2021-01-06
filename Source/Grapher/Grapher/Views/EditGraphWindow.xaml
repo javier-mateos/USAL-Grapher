@@ -35,7 +35,7 @@
 
         <!-- Graph Image -->
         <Image Grid.Column="0" Grid.Row="0" Height="98" Margin="0 6 32 18"
-               Source="{Binding Path=Type, Converter={StaticResource GraphTypeConverter}}"/>
+               Source="{Binding Path=GraphObject.Type, Converter={StaticResource GraphTypeConverter}}"/>
 
         <!-- Graph Info StackPanel -->
         <StackPanel Grid.Column="1" Grid.Row="0">
@@ -45,7 +45,7 @@
 
                 <TextBlock Text="Name" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding Path=GraphObject.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource normalTextbox}"
                      FontFamily="{StaticResource RobotoRegular}"
                      FontSize="14" Foreground="#DDFFFFFF" />
@@ -57,7 +57,7 @@
 
                 <TextBlock Text="Type" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <ComboBox SelectedItem="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <ComboBox SelectedItem="{Binding Path=GraphObject.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           ItemsSource="{Binding Source={local:EnumBindingSource {x:Type local:GraphType}}}"/>
 
             </StackPanel>
@@ -93,7 +93,7 @@
 
                 <TextBlock Text="Hex Color" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Name}"
+                <TextBox Text="{Binding Path=GraphObject.Name}"
                      Style="{StaticResource normalTextbox}"
                      FontFamily="{StaticResource RobotoRegular}"
                      FontSize="14" Foreground="#DDFFFFFF" />
@@ -105,7 +105,7 @@
 
                 <TextBlock Text="Transparency" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Name}"
+                <TextBox Text="{Binding Path=GraphObject.Name}"
                      Style="{StaticResource normalTextbox}"
                      FontFamily="{StaticResource RobotoRegular}"
                      FontSize="14" Foreground="#DDFFFFFF" />
@@ -117,7 +117,7 @@
 
                 <TextBlock Text="Thickness" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Name}"
+                <TextBox Text="{Binding Path=GraphObject.Name}"
                      Style="{StaticResource normalTextbox}"
                      FontFamily="{StaticResource RobotoRegular}"
                      FontSize="14" Foreground="#DDFFFFFF" />
