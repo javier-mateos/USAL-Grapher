@@ -123,7 +123,7 @@
 
                     <TextBox.Text>
                         <Binding Path="GraphObject.Transparency" Mode="TwoWay"
-                                 UpdateSourceTrigger="LostFocus">
+                                 UpdateSourceTrigger="PropertyChanged">
 
                             <Binding.ValidationRules>
                                 <local:StringToDouble Min="0" Max="1" ValidationStep="RawProposedValue"/>
@@ -219,13 +219,20 @@
             </Grid.RowDefinitions>
             
             <!-- Cordinates List -->
-            <ListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                
+            <ListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                      ItemsSource="{Binding Path=GraphObject.Points}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="X" Width="164" DisplayMemberBinding="{Binding XValue}"/>
+                        <GridViewColumn Header="Y" Width="165" DisplayMemberBinding="{Binding YValue}"/>
+                    </GridView>
+                </ListView.View>
             </ListView>
             
             <!-- Manual Add Button -->
             <Button Grid.Column="0" Grid.Row="1" Margin="0 24 15 0"
-                    Style="{StaticResource mediumPrimaryBtn}">
+                    Style="{StaticResource mediumPrimaryBtn}"
+                    Command="{Binding ManualAdd}">
 
                 <Button.Content>
                     <TextBlock Style="{StaticResource TextButton}" Text="MANUAL ADD"/>
@@ -235,7 +242,8 @@
 
             <!-- Auto Add Button -->
             <Button Grid.Column="1" Grid.Row="1" Margin="15 24 0 0"
-                    Style="{StaticResource mediumPrimaryBtn}">
+                    Style="{StaticResource mediumPrimaryBtn}"
+                    Command="{Binding AutoAdd}">
 
                 <Button.Content>
                     <TextBlock Style="{StaticResource TextButton}" Text="AUTO ADD"/>

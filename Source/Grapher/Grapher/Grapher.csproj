@@ -77,9 +77,13 @@
     <Compile Include="Validation\StringToHexColor.cs" />
     <Compile Include="ViewModels\EditGraphViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ManualAddViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Views\EditGraphWindow.xaml.cs">
       <DependentUpon>EditGraphWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManualAddWindow.xaml.cs">
+      <DependentUpon>ManualAddWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
@@ -101,6 +105,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,6 +144,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ManualAddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WelcomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

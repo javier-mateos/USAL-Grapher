@@ -13,7 +13,7 @@ namespace Grapher
         {
             double res = 0;
 
-            if (!double.TryParse((string)value, NumberStyles.Float, CultureInfo.InvariantCulture, out res) || (res < Min) || (res > Max))
+            if (((string)value).EndsWith(".") || ((string)value).StartsWith(".") || !double.TryParse((string)value, NumberStyles.Float, CultureInfo.InvariantCulture, out res) || (res < Min) || (res > Max))
                 return new ValidationResult(false, $"Enter a valid Double between {Min} and {Max}");
 
             return ValidationResult.ValidResult;
