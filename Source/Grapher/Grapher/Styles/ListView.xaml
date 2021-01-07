@@ -70,20 +70,9 @@
     <Style x:Key="GridViewColumnHeaderGripper" TargetType="Thumb">
         
         <Setter Property="Width" Value="18" />
-        
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <LinearGradientBrush.GradientStops>
-                        <GradientStopCollection>
-                            <GradientStop Color="red" Offset="0.0" />
-                            <GradientStop Color="green" Offset="1.0" />
-                        </GradientStopCollection>
-                    </LinearGradientBrush.GradientStops>
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
-        
+
+        <Setter Property="Background" Value="{StaticResource 05dpBackgroundBrush}"/>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
@@ -110,12 +99,16 @@
         
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        
+        <Setter Property="Foreground" Value="#AAFFFFFF" />
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}"/>
+        <Setter Property="FontSize" Value="14"/>
         
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GridViewColumnHeader">
                     <Grid>
+                        
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 
@@ -123,8 +116,8 @@
                                 
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="HeaderBorder">
-                                            <EasingColorKeyFrame KeyTime="0" Value="orange" />
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Background.Color" Storyboard.TargetName="HeaderBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource 03dpBackgroundColor}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -135,9 +128,10 @@
                                 
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
+                        
                         <Border x:Name="HeaderBorder"
-                                Padding="2,0,2,0"
-                                Background="{StaticResource 03dpBackgroundBrush}">
+                                Padding="2 5"
+                                Background="{StaticResource 02dpBackgroundBrush}">
 
                             <ContentPresenter x:Name="HeaderContent"
                                               Margin="0,0,0,1" RecognizesAccessKey="True"
@@ -158,42 +152,17 @@
         </Setter>
         
         <Style.Triggers>
-            
+
             <Trigger Property="Role" Value="Floating">
                 <Setter Property="Opacity" Value="0.7" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="GridViewColumnHeader">
                             <Canvas Name="PART_FloatingHeaderCanvas">
-                                <Rectangle Fill="#60000000" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}" />
+                                <Rectangle Fill="#60000000"
+                                           Width="{TemplateBinding ActualWidth}"
+                                           Height="{TemplateBinding ActualHeight}" />
                             </Canvas>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-            
-            <Trigger Property="Role" Value="Padding">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="GridViewColumnHeader">
-                            <Border Name="HeaderBorder" BorderThickness="0,1,0,1">
-                                
-                                <Border.Background>
-                                    <SolidColorBrush Color="pink" />
-                                </Border.Background>
-                                
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStopCollection>
-                                                <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
-                                                <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
-                                            </GradientStopCollection>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-                                </Border.BorderBrush>
-                                
-                            </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -249,10 +218,14 @@
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         
+        <Setter Property="Foreground" Value="#DDFFFFFF"/>
+        <Setter Property="FontFamily" Value="{StaticResource RobotoRegular}"/>
+        <Setter Property="FontSize" Value="14"/>
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-                    <Border x:Name="Border" Padding="2" 
+                    <Border x:Name="Border" Padding="6 3" 
                             SnapsToDevicePixels="true"
                             Background="Transparent">
                         
@@ -271,7 +244,7 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color">
-                                            <EasingColorKeyFrame KeyTime="0" Value="darkblue" />
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource Primary}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -279,7 +252,7 @@
                                 <VisualState x:Name="SelectedUnfocused">
                                     <Storyboard>
                                         <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color">
-                                            <EasingColorKeyFrame KeyTime="0" Value="gold" />
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource PrimaryShade}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -288,7 +261,7 @@
                             
                         </VisualStateManager.VisualStateGroups>
                         
-                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     
                     </Border>
                 </ControlTemplate>

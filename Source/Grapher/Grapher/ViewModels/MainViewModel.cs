@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Grapher
@@ -58,11 +60,10 @@ namespace Grapher
             MoveDownGraph = new RelayCommand<object>(MoveDownGraphExecute, MoveDownGraphCanExecute);
             TogleVisibilityGraph = new RelayCommand<object>(TogleVisibilityGraphExecute, TogleVisibilityGraphCanExecute);
             
-
             Projects = new ObservableCollection<Project>();
             CanvasDataTranslation = new ObservableCollection<Shape>();
-
         }
+
         #endregion
 
 
@@ -197,12 +198,33 @@ namespace Grapher
         #endregion
 
 
+        #region Model Manual Events
+
+        private void GraphData_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            MessageBox.Show(e.PropertyName);
+
+            switch (e.PropertyName)
+            {
+                case "Project.Name":
+                    MessageBox.Show("Nuevo Proyecto");
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        #endregion
+
         #region Canvas Functions
 
         void canvasTranslation()
         {
             if (SelectedProjectIndex == -1)
                 return;
+
+            CanvasDataTranslation.Clear();
 
             foreach (Graph graph in Projects[SelectedProjectIndex].Graphs)
             {
@@ -211,6 +233,10 @@ namespace Grapher
                     case GraphType.LineGraph:
 
                         Polyline newLine = new Polyline();
+
+                        newLine.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString(graph.Color));
+                        newLine.Opacity = graph.Opacity;
+                        newLine.StrokeThickness = graph.Thickness;
 
                         foreach (Point2D point in graph.Points)
                         {

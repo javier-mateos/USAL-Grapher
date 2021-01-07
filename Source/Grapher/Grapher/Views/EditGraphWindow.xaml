@@ -115,14 +115,14 @@
             <!-- Graph Transparency -->
             <StackPanel Grid.Column="1" Grid.Row="0" Margin="0 0 10 0">
 
-                <TextBlock Text="Transparency" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
+                <TextBlock Text="Opacity" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
                 <TextBox Style="{StaticResource normalTextbox}"
                          FontFamily="{StaticResource RobotoRegular}"
                          FontSize="14" Foreground="#DDFFFFFF">
 
                     <TextBox.Text>
-                        <Binding Path="GraphObject.Transparency" Mode="TwoWay"
+                        <Binding Path="GraphObject.Opacity" Mode="TwoWay"
                                  UpdateSourceTrigger="PropertyChanged">
 
                             <Binding.ValidationRules>
@@ -219,14 +219,22 @@
             </Grid.RowDefinitions>
             
             <!-- Cordinates List -->
-            <ListView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            <ListView x:Name="ValueList" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                       ItemsSource="{Binding Path=GraphObject.Points}">
+
+                <ListView.InputBindings>
+                    <KeyBinding Key="Delete"
+                                CommandParameter="{Binding ElementName=ValueList, Path=SelectedItems}"
+                                Command="{Binding DeleteData}"/>
+                </ListView.InputBindings>
+                
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="X" Width="164" DisplayMemberBinding="{Binding XValue}"/>
-                        <GridViewColumn Header="Y" Width="165" DisplayMemberBinding="{Binding YValue}"/>
+                        <GridViewColumn Header="X" Width="150" DisplayMemberBinding="{Binding XValue}"/>
+                        <GridViewColumn Header="Y" Width="150" DisplayMemberBinding="{Binding YValue}"/>
                     </GridView>
                 </ListView.View>
+                
             </ListView>
             
             <!-- Manual Add Button -->

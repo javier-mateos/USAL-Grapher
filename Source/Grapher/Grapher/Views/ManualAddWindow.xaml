@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Grapher"
         mc:Ignorable="d"
         
-        Title="Edit Graph" Height="210" Width="270" Icon="/Images/Logo/Logo_32px.ico"
+        Title="Add Data" Height="210" Width="270" Icon="/Images/Logo/Logo_32px.ico"
         Background="{StaticResource BaseBackgroundBrush}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">

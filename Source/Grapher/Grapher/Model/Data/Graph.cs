@@ -34,9 +34,9 @@ namespace Grapher
         public string Color { get; set; } = "#6035DC";
 
         /// <summary>
-        /// Graph Transparency
+        /// Graph Opacity
         /// </summary>
-        public double Transparency { get; set; } = 1;
+        public double Opacity { get; set; } = 1;
 
         /// <summary>
         /// Graph Thickness
