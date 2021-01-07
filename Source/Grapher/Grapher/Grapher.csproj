@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\GraphColorConverter.cs" />
     <Compile Include="Converters\GraphTypeConverter.cs" />
     <Compile Include="Converters\GraphVisibilityConverter.cs" />
     <Compile Include="Model\Data\Point2D.cs" />
@@ -72,6 +73,8 @@
     <Compile Include="Model\Data\Project.cs" />
     <Compile Include="Model\Helpers\EnumBindingSourceExtension.cs" />
     <Compile Include="Model\Helpers\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Validation\StringToDouble.cs" />
+    <Compile Include="Validation\StringToHexColor.cs" />
     <Compile Include="ViewModels\EditGraphViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />

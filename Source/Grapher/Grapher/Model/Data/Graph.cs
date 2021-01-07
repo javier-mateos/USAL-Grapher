@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Media;
 
 namespace Grapher
 {
@@ -26,6 +27,21 @@ namespace Grapher
         /// Graph Points Data
         /// </summary>
         public ObservableCollection<Point2D> Points {get; set;}
+
+        /// <summary>
+        /// Graph Color
+        /// </summary>
+        public string Color { get; set; } = "#6035DC";
+
+        /// <summary>
+        /// Graph Transparency
+        /// </summary>
+        public double Transparency { get; set; } = 1;
+
+        /// <summary>
+        /// Graph Thickness
+        /// </summary>
+        public double Thickness { get; set; } = 2;
 
         /// <summary>
         /// Graph Constructor

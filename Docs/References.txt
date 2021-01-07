@@ -10,3 +10,4 @@
 --> IValueConverter: https://www.wpf-tutorial.com/data-binding/value-conversion-with-ivalueconverter/
 --> Bind Enum to ComboBox: https://brianlagunas.com/a-better-way-to-data-bind-enums-in-wpf/
 --> Data Validation with Bindigs: https://blog.magnusmontin.net/2013/08/26/data-validation-in-wpf/
+--> Data Validation with Bindigs: https://docs.microsoft.com/en-us/dotnet/desktop/wpf/data/how-to-implement-binding-validation

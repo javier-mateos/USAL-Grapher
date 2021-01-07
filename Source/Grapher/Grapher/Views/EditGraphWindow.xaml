@@ -15,6 +15,7 @@
 
         <!-- Value Converters -->
         <local:GraphTypeConverter x:Key="GraphTypeConverter"/>
+        <local:GraphColorConverter x:Key="GraphColorConverter"/>
 
     </Window.Resources>
 
@@ -93,10 +94,21 @@
 
                 <TextBlock Text="Hex Color" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Path=GraphObject.Name}"
-                     Style="{StaticResource normalTextbox}"
-                     FontFamily="{StaticResource RobotoRegular}"
-                     FontSize="14" Foreground="#DDFFFFFF" />
+                <TextBox Style="{StaticResource normalTextbox}"
+                         FontFamily="{StaticResource RobotoRegular}"
+                         FontSize="14" Foreground="#DDFFFFFF">
+
+                    <TextBox.Text>
+                        <Binding Path="GraphObject.Color" Mode="TwoWay"
+                                     UpdateSourceTrigger="PropertyChanged">
+
+                            <Binding.ValidationRules>
+                                <local:StringToHexColor ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+
+                </TextBox>
 
             </StackPanel>
 
@@ -105,10 +117,21 @@
 
                 <TextBlock Text="Transparency" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Path=GraphObject.Name}"
-                     Style="{StaticResource normalTextbox}"
-                     FontFamily="{StaticResource RobotoRegular}"
-                     FontSize="14" Foreground="#DDFFFFFF" />
+                <TextBox Style="{StaticResource normalTextbox}"
+                         FontFamily="{StaticResource RobotoRegular}"
+                         FontSize="14" Foreground="#DDFFFFFF">
+
+                    <TextBox.Text>
+                        <Binding Path="GraphObject.Transparency" Mode="TwoWay"
+                                 UpdateSourceTrigger="LostFocus">
+
+                            <Binding.ValidationRules>
+                                <local:StringToDouble Min="0" Max="1" ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    
+                </TextBox>
 
             </StackPanel>
 
@@ -117,10 +140,21 @@
 
                 <TextBlock Text="Thickness" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Path=GraphObject.Name}"
-                     Style="{StaticResource normalTextbox}"
-                     FontFamily="{StaticResource RobotoRegular}"
-                     FontSize="14" Foreground="#DDFFFFFF" />
+                <TextBox Style="{StaticResource normalTextbox}"
+                         FontFamily="{StaticResource RobotoRegular}"
+                         FontSize="14" Foreground="#DDFFFFFF">
+
+                    <TextBox.Text>
+                        <Binding Path="GraphObject.Thickness" Mode="TwoWay"
+                                     UpdateSourceTrigger="PropertyChanged">
+
+                            <Binding.ValidationRules>
+                                <local:StringToDouble Min="0" Max="100" ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    
+                </TextBox>
 
             </StackPanel>
 
@@ -157,7 +191,8 @@
                     Margin="0 26 32 0" CornerRadius="3"
                     BorderBrush="{StaticResource 02dpBackgroundBrush}"
                     BorderThickness="2"
-                    Background="{Binding Color}"/>
+                    Background="{Binding Path=GraphObject.Color, Converter={StaticResource GraphColorConverter}}"
+                    Opacity="{Binding GraphObject.Transparency}"/>
 
         </Grid>
 

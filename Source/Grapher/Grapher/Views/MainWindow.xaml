@@ -296,7 +296,7 @@
                     <ItemsControl ItemsSource="{Binding Path=DataContext.CanvasDataTranslation, RelativeSource={RelativeSource AncestorType=Window}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <Canvas Background="AliceBlue"/>
+                                <Canvas/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
