@@ -213,7 +213,7 @@
 
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Background.Color" Storyboard.TargetName="Border">
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Color" Storyboard.TargetName="BorderBrushColor">
                                             <EasingColorKeyFrame KeyTime="0" Value="{StaticResource PrimaryTint}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
@@ -221,7 +221,7 @@
 
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Background.Color" Storyboard.TargetName="Border">
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Color" Storyboard.TargetName="BorderBrushColor">
                                             <EasingColorKeyFrame KeyTime="0" Value="#60FFFFFF"/>
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>

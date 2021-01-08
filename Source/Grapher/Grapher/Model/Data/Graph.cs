@@ -54,5 +54,14 @@ namespace Grapher
             Points.Add(new Point2D { XValue = 40, YValue = 60 });
             Points.Add(new Point2D { XValue = 50, YValue = 10 });
         }
+
+        public virtual void OnPropertyChanged(string propertyName)
+        {
+            var propertyChanged = PropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

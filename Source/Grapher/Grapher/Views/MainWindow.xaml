@@ -16,8 +16,6 @@
 
         <!-- Value Converters -->
         <local:GraphVisibilityIconConverter x:Key="GraphVisibilityIconConverter"/>
-        <local:GraphVisibilityConverter x:Key="GraphVisibilityConverter"/>
-        <local:GraphPointsConverter x:Key="GraphPointsConverter"/>
         <local:GraphColorConverter x:Key="GraphColorConverter"/>
         <local:GraphTypeConverter x:Key="GraphTypeConverter"/>
 
@@ -26,7 +24,7 @@
     <!-- Window SizeChanged Event Command -->
     <behaviors:Interaction.Triggers>
         <behaviors:EventTrigger EventName="SizeChanged">
-            <behaviors:InvokeCommandAction Command="{Binding NewGraph}"/>
+            <behaviors:InvokeCommandAction Command="{Binding WindowSizeChanged}"/>
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>
 
@@ -268,10 +266,12 @@
         </Border>
 
         <!-- Tabs & Graph Canvas -->
-        <TabControl x:Name="projectsTab" Panel.ZIndex="1"
+
+        <TabControl x:Name="projectsTab" Panel.ZIndex="1" DockPanel.Dock="Top"
                     Style="{StaticResource projectsTabControl}"
                     ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedIndex="{Binding SelectedProjectIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    SelectedIndex="{Binding SelectedProjectIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="projectsTab_SelectionChanged">
 
             <!-- TabItem Header Template -->
             <TabControl.ItemTemplate>
@@ -300,39 +300,18 @@
                 </DataTemplate>
             </TabControl.ItemTemplate>
 
-            <!-- TabItem Content Template -->
+            <!-- TabItem Content Template 
             <TabControl.ContentTemplate>
                 <DataTemplate>
 
-                    <ItemsControl ItemsSource="{Binding Graphs, UpdateSourceTrigger=PropertyChanged}"> <!--Converter={StaticResource GraphCanvasConverter},-->
-                        
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
+                    <Canvas Name="graphCanvas"/>
 
-                                <Canvas Height="{Binding Path=CanvasHeight, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window}}"
-                                        Width="{Binding Path=CanvasWidth, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window}}"/>
-
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                
-                                <Polyline Points="{Binding Path=., Converter={StaticResource GraphPointsConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                          Stroke="{Binding Color, Converter={StaticResource GraphColorConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                          StrokeThickness="{Binding Thickness, UpdateSourceTrigger=PropertyChanged}"
-                                          Visibility="{Binding IsVisible, Converter={StaticResource GraphVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                          Opacity="{Binding Opacity, UpdateSourceTrigger=PropertyChanged}"/>
-                                
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        
-                    </ItemsControl>
-                    
                 </DataTemplate>
-            </TabControl.ContentTemplate>
+            </TabControl.ContentTemplate>-->
 
         </TabControl>
+
+        <Canvas x:Name="graphCanvas"/>
 
     </DockPanel>
 </Window>

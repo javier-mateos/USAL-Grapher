@@ -8,5 +8,6 @@ namespace Grapher
 
         public double XValue { get; set; }
         public double YValue { get; set; }
+
     }
 }

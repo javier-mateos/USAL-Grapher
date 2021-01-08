@@ -2,7 +2,10 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Grapher
 {
@@ -11,6 +14,18 @@ namespace Grapher
         public event PropertyChangedEventHandler PropertyChanged;
 
         Random rnd;
+
+
+        #region Public Members
+
+        public ObservableCollection<Project> Projects { get; set; }
+
+        public int SelectedProjectIndex { get; set; } = 0;
+        
+        public Canvas GraphCanvas { get; set; }
+
+        #endregion
+
 
         #region Commands
 
@@ -25,33 +40,7 @@ namespace Grapher
         public ICommand MoveDownGraph { get; set; }
         public ICommand TogleVisibilityGraph { get; set; }
 
-        public ICommand WindowResized { get; set; }
-        
-
-        #endregion
-
-
-        #region Public Members
-
-        public int SelectedProjectIndex { get; set; } = 0;
-
-        public int CanvasHeight { get; set; }
-        public int CanvasWidth { get; set; }
-
-       /* public int[] CanvasSize 
-        {
-            get
-            {
-                CanvasSize[0] = CanvasHeight;
-                CanvasSize[1] = CanvasWidth;
-
-                return CanvasSize;
-            }
-
-            set { CanvasSize = value; }
-        }*/
-
-        public ObservableCollection<Project> Projects { get; set; }
+        public ICommand WindowSizeChanged { get; set; }
 
         #endregion
 
@@ -62,10 +51,12 @@ namespace Grapher
             /* Temp */
             rnd = new Random();
 
+            /* Project Commands */
             NewProject = new RelayCommand<object>(NewProjectExecute, NewProjectCanExecute);
             CloseProject = new RelayCommand<object>(CloseProjectExecute, CloseProjectCanExecute);
             CloseAllProjects = new RelayCommand<object>(CloseAllProjectsExecute, CloseAllProjectsCanExecute);
 
+            /* Graph Commands */
             NewGraph = new RelayCommand<object>(NewGraphExecute, NewGraphCanExecute);
             EditGraph = new RelayCommand<object>(EditGraphExecute, EditGraphCanExecute);
             DeleteGraph = new RelayCommand<object>(DeleteGraphExecute, DeleteGraphCanExecute);
@@ -73,11 +64,15 @@ namespace Grapher
             MoveDownGraph = new RelayCommand<object>(MoveDownGraphExecute, MoveDownGraphCanExecute);
             TogleVisibilityGraph = new RelayCommand<object>(TogleVisibilityGraphExecute, TogleVisibilityGraphCanExecute);
 
-            WindowResized = new RelayCommand<object>(WindowResizedExecute, WindowResizedCanExecute);
-            
+            /* Window Commands */
+            WindowSizeChanged = new RelayCommand<object>(WindowSizeChangedExecute, WindowSizeChangedCanExecute);
+
+            /* Project Collection */
             Projects = new ObservableCollection<Project>();
 
-            //CanvasSize = new int[2];
+            /* Subscribe to Project CollectionChanged Event */
+            Projects.CollectionChanged += Projects_CollectionChanged;
+
         }
 
         #endregion
@@ -213,28 +208,139 @@ namespace Grapher
         #endregion
 
 
-        #region Window Commands
-
-        private bool WindowResizedCanExecute(object obj)
+        #region Events Commands
+        
+        private bool WindowSizeChangedCanExecute(object obj)
         {
-            return true;
+            return (Projects.Count > 0 && SelectedProjectIndex != -1) ? true : false;
         }
 
-        private void WindowResizedExecute(object obj)
+        private void WindowSizeChangedExecute(object obj)
         {
-            MessageBox.Show("Hola");
+            RefreshCanvas();
         }
 
         #endregion
 
-        #region Canvas Functions
 
-        /*void canvasTranslation()
+        #region Events
+
+        private void Projects_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (SelectedProjectIndex == -1)
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    foreach (Project project in e.NewItems)
+                    {
+                        project.Graphs.CollectionChanged += Graphs_CollectionChanged;
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    foreach (Project project in e.OldItems)
+                    {
+                        project.Graphs.CollectionChanged -= Graphs_CollectionChanged;
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+
+        private void Graphs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    foreach (Graph graph in e.NewItems)
+                    {
+                        graph.Points.CollectionChanged += RefreshCanvasCollection;
+                        graph.PropertyChanged += RefreshCanvasProperty;
+
+                        RefreshCanvas();
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    foreach (Graph graph in e.OldItems)
+                    {
+                        graph.Points.CollectionChanged -= RefreshCanvasCollection;
+                        graph.PropertyChanged -= RefreshCanvasProperty;
+
+                        RefreshCanvas();
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    RefreshCanvas();
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                    RefreshCanvas();
+
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Points_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    foreach (Point2D point in e.NewItems)
+                    {
+                        point.PropertyChanged += RefreshCanvasProperty;
+
+                        RefreshCanvas();
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    foreach (Point2D point in e.OldItems)
+                    {
+                        point.PropertyChanged -= RefreshCanvasProperty;
+
+                        RefreshCanvas();
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void RefreshCanvasCollection(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            RefreshCanvas();
+        }
+
+        private void RefreshCanvasProperty(object sender, PropertyChangedEventArgs e)
+        {
+            RefreshCanvas();
+        }
+
+        #endregion
+
+
+        #region Canvas
+
+        public void RefreshCanvas()
+        {
+            if (Projects.Count <= 0 && SelectedProjectIndex < 0)
                 return;
 
-            CanvasDataTranslation.Clear();
+            GraphCanvas.Children.Clear();
 
             foreach (Graph graph in Projects[SelectedProjectIndex].Graphs)
             {
@@ -242,33 +348,49 @@ namespace Grapher
                 {
                     case GraphType.LineGraph:
 
-                        Polyline newLine = new Polyline();
-
-                        newLine.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString(graph.Color));
-                        newLine.Opacity = graph.Opacity;
-                        newLine.StrokeThickness = graph.Thickness;
+                        Polyline tmpPoly = new Polyline();
 
                         foreach (Point2D point in graph.Points)
-                        {
-                            newLine.Points.Add(new System.Windows.Point { X = point.XValue, Y = point.YValue });
-                        }
+                            tmpPoly.Points.Add(new Point { X = point.XValue, Y = point.YValue });
 
-                        CanvasDataTranslation.Add(newLine);
+                        tmpPoly.Opacity = graph.Opacity;
+                        tmpPoly.StrokeThickness = graph.Thickness;
+                        tmpPoly.Stroke = new SolidColorBrush { Color = (Color)ColorConverter.ConvertFromString(graph.Color) };
+                        tmpPoly.Visibility = graph.IsVisible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+
+                        GraphCanvas.Children.Add(tmpPoly);
 
                         break;
-
                     case GraphType.BarGraph:
+                        foreach (Point2D point in graph.Points)
+                        {
+                            Line tmpLine = new Line();
 
+                            tmpLine.X1 = point.XValue;
+                            tmpLine.Y1 = 0;
+                            tmpLine.X2 = point.XValue;
+                            tmpLine.Y2 = point.YValue;
 
+                            tmpLine.Opacity = graph.Opacity;
+                            tmpLine.StrokeThickness = graph.Thickness;
+                            tmpLine.Stroke = new SolidColorBrush { Color = (Color)ColorConverter.ConvertFromString(graph.Color) };
+                            tmpLine.Visibility = graph.IsVisible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
 
+                            GraphCanvas.Children.Add(tmpLine);
+                        }
                         break;
-
                     default:
-                        return;
+                        break;
                 }
             }
+
             
-        }*/
+        }
+
+        private double ObjectToCanvasCalc()
+        {
+
+        }
 
         #endregion
     }
