@@ -41,6 +41,9 @@
     <ApplicationIcon>Images\Logo\Logo_48px.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="PropertyChanged, Version=3.3.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
       <HintPath>..\packages\PropertyChanged.Fody.3.3.1\lib\net40\PropertyChanged.dll</HintPath>
     </Reference>
@@ -65,6 +68,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\GraphColorConverter.cs" />
+    <Compile Include="Converters\GraphCanvasConverter.cs" />
     <Compile Include="Converters\GraphTypeConverter.cs" />
     <Compile Include="Converters\GraphVisibilityConverter.cs" />
     <Compile Include="Model\Data\Point2D.cs" />

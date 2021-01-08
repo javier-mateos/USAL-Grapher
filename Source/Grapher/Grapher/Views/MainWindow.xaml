@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:Grapher"
         mc:Ignorable="d"
         
@@ -14,10 +15,18 @@
     <Window.Resources>
 
         <!-- Value Converters -->
+        <local:GraphCanvasConverter x:Key="GraphCanvasConverter"/>
         <local:GraphVisibilityConverter x:Key="GraphVisibilityConverter"/>
         <local:GraphTypeConverter x:Key="GraphTypeConverter"/>
 
     </Window.Resources>
+
+    <!-- Window SizeChanged Event Command -->
+    <behaviors:Interaction.Triggers>
+        <behaviors:EventTrigger EventName="SizeChanged">
+            <behaviors:InvokeCommandAction Command="{Binding NewGraph}"/>
+        </behaviors:EventTrigger>
+    </behaviors:Interaction.Triggers>
 
     <DockPanel x:Name="dockPanel">
 
@@ -293,10 +302,13 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
 
-                    <ItemsControl ItemsSource="{Binding Path=DataContext.CanvasDataTranslation, RelativeSource={RelativeSource AncestorType=Window}}">
+                    <ItemsControl ItemsSource="{Binding ElementName=projectsTab, Path=SelectedItem.Graphs, Mode=OneWay, Converter={StaticResource GraphCanvasConverter}, UpdateSourceTrigger=PropertyChanged}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <Canvas/>
+                                
+                                <Canvas Height="{Binding Path=CanvasHeight, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        Width="{Binding Path=CanvasWidth, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                            
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>

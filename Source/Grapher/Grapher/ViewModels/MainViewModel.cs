@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Grapher
 {
@@ -26,6 +23,8 @@ namespace Grapher
         public ICommand MoveUpGraph { get; set; }
         public ICommand MoveDownGraph { get; set; }
         public ICommand TogleVisibilityGraph { get; set; }
+
+        public ICommand WindowResized { get; set; }
         
 
         #endregion
@@ -35,10 +34,21 @@ namespace Grapher
 
         public int SelectedProjectIndex { get; set; } = 0;
 
+        public int CanvasHeight { get; set; }
+        public int CanvasWidth { get; set; }
+
+        public int[] CanvasSize 
+        {
+            get
+            {
+                CanvasSize[0] = CanvasHeight;
+                CanvasSize[1] = CanvasWidth;
+
+                return CanvasSize;
+            }
+        }
 
         public ObservableCollection<Project> Projects { get; set; }
-
-        public ObservableCollection<Shape> CanvasDataTranslation { get; set; }
 
         #endregion
 
@@ -59,9 +69,10 @@ namespace Grapher
             MoveUpGraph = new RelayCommand<object>(MoveUpGraphExecute, MoveUpGraphCanExecute);
             MoveDownGraph = new RelayCommand<object>(MoveDownGraphExecute, MoveDownGraphCanExecute);
             TogleVisibilityGraph = new RelayCommand<object>(TogleVisibilityGraphExecute, TogleVisibilityGraphCanExecute);
+
+            WindowResized = new RelayCommand<object>(WindowResizedExecute, WindowResizedCanExecute);
             
             Projects = new ObservableCollection<Project>();
-            CanvasDataTranslation = new ObservableCollection<Shape>();
         }
 
         #endregion
@@ -198,28 +209,23 @@ namespace Grapher
         #endregion
 
 
-        #region Model Manual Events
+        #region Window Commands
 
-        private void GraphData_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private bool WindowResizedCanExecute(object obj)
         {
-            MessageBox.Show(e.PropertyName);
+            return true;
+        }
 
-            switch (e.PropertyName)
-            {
-                case "Project.Name":
-                    MessageBox.Show("Nuevo Proyecto");
-                    break;
-
-                default:
-                    break;
-            }
+        private void WindowResizedExecute(object obj)
+        {
+            
         }
 
         #endregion
 
         #region Canvas Functions
 
-        void canvasTranslation()
+        /*void canvasTranslation()
         {
             if (SelectedProjectIndex == -1)
                 return;
@@ -258,7 +264,7 @@ namespace Grapher
                 }
             }
             
-        }
+        }*/
 
         #endregion
     }
