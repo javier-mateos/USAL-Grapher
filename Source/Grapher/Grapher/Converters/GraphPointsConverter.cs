@@ -1,20 +1,40 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Grapher
 {
-    class GraphCanvasConverter : IValueConverter
+    class GraphPointsConverter : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            ObservableCollection<Point2D> Points = ((Graph)value).Points;
+            
 
-            ObservableCollection<Shape> CanvasDataTranslation = new ObservableCollection<Shape>();
+            switch (((Graph)value).Type)
+            {
+                case GraphType.LineGraph:
+                    PointCollection canvasPoints = new PointCollection();
+
+                    foreach (Point2D point in Points)
+                    {
+                        canvasPoints.Add(new System.Windows.Point(point.XValue, point.YValue));
+                    }
+
+                    return canvasPoints;
+
+                case GraphType.BarGraph:
+                    break;
+                default:
+                    break;
+            }
+
+            return null;
+
+            /*ObservableCollection<Shape> CanvasDataTranslation = new ObservableCollection<Shape>();
             ObservableCollection<Graph> Graphs = (ObservableCollection<Graph>)value;
             Graph Graph = new Graph();
 
@@ -54,7 +74,7 @@ namespace Grapher
                 
             }
 
-            return CanvasDataTranslation;
+            return CanvasDataTranslation;*/
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

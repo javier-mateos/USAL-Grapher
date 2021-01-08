@@ -68,15 +68,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\GraphColorConverter.cs" />
-    <Compile Include="Converters\GraphCanvasConverter.cs" />
-    <Compile Include="Converters\GraphTypeConverter.cs" />
     <Compile Include="Converters\GraphVisibilityConverter.cs" />
+    <Compile Include="Converters\GraphPointsConverter.cs" />
+    <Compile Include="Converters\GraphTypeConverter.cs" />
+    <Compile Include="Converters\GraphVisibilityIconConverter.cs" />
     <Compile Include="Model\Data\Point2D.cs" />
     <Compile Include="Model\Data\Graph.cs" />
     <Compile Include="Model\Data\GraphType.cs" />
     <Compile Include="Model\Data\Project.cs" />
     <Compile Include="Model\Helpers\EnumBindingSourceExtension.cs" />
     <Compile Include="Model\Helpers\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Model\Helpers\PropertyChangedNotificationInterceptor.cs" />
     <Compile Include="Validation\StringToDouble.cs" />
     <Compile Include="Validation\StringToHexColor.cs" />
     <Compile Include="ViewModels\EditGraphViewModel.cs" />

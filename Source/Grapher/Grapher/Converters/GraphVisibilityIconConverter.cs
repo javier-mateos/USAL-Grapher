@@ -4,11 +4,18 @@ using System.Windows.Data;
 
 namespace Grapher
 {
-    class GraphVisibilityConverter : IValueConverter
+    class GraphVisibilityIconConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            Uri newImage;
+
+            if ((bool)value)   
+                newImage = new Uri("/Images/VisibilityOn.png", UriKind.Relative);
+            else
+                newImage = new Uri("/Images/VisibilityOff.png", UriKind.Relative);
+
+            return newImage;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

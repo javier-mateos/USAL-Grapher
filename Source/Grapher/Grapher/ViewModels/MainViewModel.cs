@@ -126,7 +126,7 @@ namespace Grapher
         }
 
         private void NewGraphExecute(object obj)
-        {   
+        {
             Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "Test Graph " + rnd.Next(10) });
         }
 

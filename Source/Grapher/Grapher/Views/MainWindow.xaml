@@ -15,8 +15,10 @@
     <Window.Resources>
 
         <!-- Value Converters -->
-        <local:GraphCanvasConverter x:Key="GraphCanvasConverter"/>
+        <local:GraphVisibilityIconConverter x:Key="GraphVisibilityIconConverter"/>
         <local:GraphVisibilityConverter x:Key="GraphVisibilityConverter"/>
+        <local:GraphPointsConverter x:Key="GraphPointsConverter"/>
+        <local:GraphColorConverter x:Key="GraphColorConverter"/>
         <local:GraphTypeConverter x:Key="GraphTypeConverter"/>
 
     </Window.Resources>
@@ -208,7 +210,7 @@
                                             Command="{Binding Path=DataContext.TogleVisibilityGraph, RelativeSource={RelativeSource AncestorType=Window}}"
                                             CommandParameter="{Binding}">
 
-                                        <Image Source="{Binding Path=IsVisible, Converter={StaticResource GraphVisibilityConverter}}"
+                                        <Image Source="{Binding Path=IsVisible, Converter={StaticResource GraphVisibilityIconConverter}}"
                                                Height="12"/>
                                         
                                     </Button>
@@ -302,7 +304,8 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
 
-                    <ItemsControl ItemsSource="{Binding Graphs, Converter={StaticResource GraphCanvasConverter}}">
+                    <ItemsControl ItemsSource="{Binding Graphs, UpdateSourceTrigger=PropertyChanged}"> <!--Converter={StaticResource GraphCanvasConverter},-->
+                        
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
 
@@ -311,6 +314,19 @@
 
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
+                        
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                
+                                <Polyline Points="{Binding Path=., Converter={StaticResource GraphPointsConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                          Stroke="{Binding Color, Converter={StaticResource GraphColorConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                          StrokeThickness="{Binding Thickness, UpdateSourceTrigger=PropertyChanged}"
+                                          Visibility="{Binding IsVisible, Converter={StaticResource GraphVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                          Opacity="{Binding Opacity, UpdateSourceTrigger=PropertyChanged}"/>
+                                
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        
                     </ItemsControl>
                     
                 </DataTemplate>
