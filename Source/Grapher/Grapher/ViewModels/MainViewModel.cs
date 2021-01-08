@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Grapher
@@ -37,7 +38,7 @@ namespace Grapher
         public int CanvasHeight { get; set; }
         public int CanvasWidth { get; set; }
 
-        public int[] CanvasSize 
+       /* public int[] CanvasSize 
         {
             get
             {
@@ -46,7 +47,9 @@ namespace Grapher
 
                 return CanvasSize;
             }
-        }
+
+            set { CanvasSize = value; }
+        }*/
 
         public ObservableCollection<Project> Projects { get; set; }
 
@@ -73,6 +76,8 @@ namespace Grapher
             WindowResized = new RelayCommand<object>(WindowResizedExecute, WindowResizedCanExecute);
             
             Projects = new ObservableCollection<Project>();
+
+            //CanvasSize = new int[2];
         }
 
         #endregion
@@ -122,7 +127,6 @@ namespace Grapher
 
         private void NewGraphExecute(object obj)
         {   
-
             Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "Test Graph " + rnd.Next(10) });
         }
 
@@ -218,7 +222,7 @@ namespace Grapher
 
         private void WindowResizedExecute(object obj)
         {
-            
+            MessageBox.Show("Hola");
         }
 
         #endregion

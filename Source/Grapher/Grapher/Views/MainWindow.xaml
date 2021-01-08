@@ -268,8 +268,8 @@
         <!-- Tabs & Graph Canvas -->
         <TabControl x:Name="projectsTab" Panel.ZIndex="1"
                     Style="{StaticResource projectsTabControl}"
-                    ItemsSource="{Binding Projects}"
-                    SelectedIndex="{Binding SelectedProjectIndex, Mode=TwoWay}">
+                    ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedIndex="{Binding SelectedProjectIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
             <!-- TabItem Header Template -->
             <TabControl.ItemTemplate>
@@ -302,17 +302,17 @@
             <TabControl.ContentTemplate>
                 <DataTemplate>
 
-                    <ItemsControl ItemsSource="{Binding ElementName=projectsTab, Path=SelectedItem.Graphs, Mode=OneWay, Converter={StaticResource GraphCanvasConverter}, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl ItemsSource="{Binding Graphs, Converter={StaticResource GraphCanvasConverter}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                
+
                                 <Canvas Height="{Binding Path=CanvasHeight, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window}}"
                                         Width="{Binding Path=CanvasWidth, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                            
+
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
-
+                    
                 </DataTemplate>
             </TabControl.ContentTemplate>
 

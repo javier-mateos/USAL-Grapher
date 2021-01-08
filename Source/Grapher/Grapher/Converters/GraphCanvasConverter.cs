@@ -8,32 +8,32 @@ using System.Windows.Shapes;
 
 namespace Grapher
 {
-    class GraphCanvasConverter : IValueConverter, INotifyPropertyChanged
+    class GraphCanvasConverter : IValueConverter
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        ObservableCollection<Shape> CanvasDataTranslation { get; set; } = new ObservableCollection<Shape>();
-        ObservableCollection<Graph> Graphs { get; set; } = new ObservableCollection<Graph>();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            
-            Graphs = (ObservableCollection<Graph>)value;
 
+            ObservableCollection<Shape> CanvasDataTranslation = new ObservableCollection<Shape>();
+            ObservableCollection<Graph> Graphs = (ObservableCollection<Graph>)value;
+            Graph Graph = new Graph();
 
-            foreach (Graph graph in Graphs)
-            {
-                switch (graph.Type)
+            for (int i = Graphs.Count-1; i >= 0; i--)
+            { 
+                Graph = Graphs[i];
+
+                switch (Graph.Type)
                 {
                     case GraphType.LineGraph:
 
                         Polyline newLine = new Polyline();
 
-                        newLine.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString(graph.Color));
-                        newLine.Opacity = graph.Opacity;
-                        newLine.StrokeThickness = graph.Thickness;
+                        newLine.Visibility = (Graph.IsVisible) ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+                        newLine.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString(Graph.Color));
+                        newLine.Opacity = Graph.Opacity;
+                        newLine.StrokeThickness = Graph.Thickness;
 
-                        foreach (Point2D point in graph.Points)
+                        foreach (Point2D point in Graph.Points)
                         {
                             newLine.Points.Add(new System.Windows.Point { X = point.XValue, Y = point.YValue });
                         }
