@@ -70,6 +70,8 @@
     <Compile Include="Converters\GraphColorConverter.cs" />
     <Compile Include="Converters\GraphTypeConverter.cs" />
     <Compile Include="Converters\GraphVisibilityIconConverter.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Model\Data\DashType.cs" />
     <Compile Include="Model\Data\Point2D.cs" />
     <Compile Include="Model\Data\Graph.cs" />
     <Compile Include="Model\Data\GraphType.cs" />
@@ -100,6 +102,10 @@
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CheckBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

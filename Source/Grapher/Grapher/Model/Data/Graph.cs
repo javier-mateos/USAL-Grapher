@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Media;
 
 namespace Grapher
 {
@@ -46,6 +47,16 @@ namespace Grapher
         /// Graph Thickness
         /// </summary>
         public double Thickness { get; set; } = 2;
+
+        /// <summary>
+        /// Graph Cap
+        /// </summary>
+        public PenLineCap Cap { get; set; } = PenLineCap.Flat;
+
+        /// <summary>
+        /// Graph Dash
+        /// </summary>
+        public DashType Dash { get; set; } = DashType.None;
 
         /// <summary>
         /// Graph Constructor

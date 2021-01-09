@@ -391,6 +391,7 @@ namespace Grapher
 
                 switch (graph.Type)
                 {
+                    #region LineGraph
                     case GraphType.LineGraph:
                         
                         Polyline tmpPoly = new Polyline();
@@ -401,7 +402,32 @@ namespace Grapher
                                 Y = CanvasTranslator.YRealToYScreen(point.YValue, yMin, yMax, GraphCanvas.ActualHeight)
                             });
 
+                        switch (graph.Dash)
+                        {
+                            case DashType.None:
+                                break;
+                            case DashType.Dot:
+                                tmpPoly.StrokeDashArray = new DoubleCollection() { 1, 2 };
+                                break;
+                            case DashType.DottedPlus:
+                                tmpPoly.StrokeDashArray = new DoubleCollection() { 1, 6 };
+                                break;
+                            case DashType.Dashed:
+                                tmpPoly.StrokeDashArray = new DoubleCollection() { 6, 1 };
+                                break;
+                            case DashType.DotDash:
+                                tmpPoly.StrokeDashArray = new DoubleCollection() { 4, 1, 1, 1 };
+                                break;
+                            case DashType.DotDotDash:
+                                tmpPoly.StrokeDashArray = new DoubleCollection() { 4, 1, 1, 1, 1, 1 };
+                                break;
+                            default:
+                                break;
+                        }
+
                         tmpPoly.Opacity = graph.Opacity;
+                        tmpPoly.StrokeDashCap = graph.Cap;
+                        tmpPoly.StrokeStartLineCap = tmpPoly.StrokeEndLineCap = graph.Cap;
                         tmpPoly.StrokeThickness = graph.Thickness;
                         tmpPoly.Stroke = new SolidColorBrush { Color = (Color)ColorConverter.ConvertFromString(graph.Color) };
                         tmpPoly.Visibility = graph.IsVisible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
@@ -409,6 +435,9 @@ namespace Grapher
                         GraphCanvas.Children.Add(tmpPoly);
 
                         break;
+                    #endregion
+
+                    #region BarGraph
                     case GraphType.BarGraph:
                         foreach (Point2D point in graph.Points)
                         {
@@ -419,7 +448,32 @@ namespace Grapher
                             tmpLine.X2 = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth);
                             tmpLine.Y2 = CanvasTranslator.YRealToYScreen(point.YValue, yMin, yMax, GraphCanvas.ActualHeight);
 
+                            switch (graph.Dash)
+                            {
+                                case DashType.None:
+                                    break;
+                                case DashType.Dot:
+                                    tmpLine.StrokeDashArray = new DoubleCollection() { 1 };
+                                    break;
+                                case DashType.DottedPlus:
+                                    tmpLine.StrokeDashArray = new DoubleCollection() { 1, 6 };
+                                    break;
+                                case DashType.Dashed:
+                                    tmpLine.StrokeDashArray = new DoubleCollection() { 6, 1 };
+                                    break;
+                                case DashType.DotDash:
+                                    tmpLine.StrokeDashArray = new DoubleCollection() { 4, 1, 1, 1 };
+                                    break;
+                                case DashType.DotDotDash:
+                                    tmpLine.StrokeDashArray = new DoubleCollection() { 4, 1, 1, 1, 1, 1 };
+                                    break;
+                                default:
+                                    break;
+                            }
+
                             tmpLine.Opacity = graph.Opacity;
+                            tmpLine.StrokeDashCap = graph.Cap;
+                            tmpLine.StrokeStartLineCap = tmpLine.StrokeEndLineCap = graph.Cap;
                             tmpLine.StrokeThickness = graph.Thickness;
                             tmpLine.Stroke = new SolidColorBrush { Color = (Color)ColorConverter.ConvertFromString(graph.Color) };
                             tmpLine.Visibility = graph.IsVisible ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
@@ -427,6 +481,8 @@ namespace Grapher
                             GraphCanvas.Children.Add(tmpLine);
                         }
                         break;
+                    #endregion
+
                     default:
                         break;
                 }

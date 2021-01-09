@@ -39,7 +39,7 @@
 
                 <TextBlock Text="Polynomial Expression" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Path=PolyExp.ToString, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding Path=PolyExp, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource normalTextbox}"
                      FontFamily="{StaticResource RobotoRegular}"
                      FontSize="14" Foreground="#DDFFFFFF"
