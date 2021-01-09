@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Grapher"
         mc:Ignorable="d"
         
-        Title="Auto-Add Data" Height="390" Width="480" Icon="/Images/Logo/Logo_32px.ico"
+        Title="Auto-Add Data" Height="320" Width="480" Icon="/Images/Logo/Logo_32px.ico"
         Background="{StaticResource BaseBackgroundBrush}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
@@ -31,7 +31,6 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- Result -->
@@ -123,28 +122,6 @@
                 </TextBox>
 
             </StackPanel>
-
-            <!-- Add Button -->
-            <Button Grid.Column="0" Grid.Row="4" Margin="0 50 16 0"
-                    Style="{StaticResource mediumPrimaryBtn}"
-                    Command="{Binding Add}">
-
-                <Button.Content>
-                    <TextBlock Style="{StaticResource TextButton}" Text="ADD"/>
-                </Button.Content>
-
-            </Button>
-
-            <!-- Cancel Button -->
-            <Button Grid.Column="1" Grid.Row="4" Margin="16 50 0 0"
-                    Style="{StaticResource mediumSecondaryBtn}"
-                    Command="{Binding Cancel}">
-
-                <Button.Content>
-                    <TextBlock Style="{StaticResource TextButton}" Foreground="{StaticResource PrimaryTintColorBrush}" Text="CANCEL"/>
-                </Button.Content>
-
-            </Button>
 
         </Grid>
         

@@ -23,54 +23,16 @@ namespace Grapher
         #endregion
 
 
-        #region Commands
-
-        public ICommand Add { get; set; }
-        public ICommand Cancel { get; set; }
-
-        #endregion
-
         public AutoAddViewModel(PolynomialExpression poly)
         {
             /* Poly */
             PolyExp = poly;
 
-            /* Commands */
-            Add = new RelayCommand<object>(AddExecute, AddCanExecute);
-            Cancel = new RelayCommand<object>(CancelExecute, CancelCanExecute);
-
             /* Window*/
             Wnd = new AutoAddWindow();
             Wnd.DataContext = this;
 
-            Wnd.ShowDialog();
-        }
-
-        private bool AddCanExecute(object obj)
-        {
-            /* TODO: Data validation disable button */
-            return true;
-        }
-
-        private void AddExecute(object obj)
-        {
-            
-
-            Wnd.DialogResult = true;
-
-            return;
-        }
-
-        private bool CancelCanExecute(object obj)
-        {
-            return true;
-        }
-
-        private void CancelExecute(object obj)
-        {
-            Wnd.DialogResult = false;
-
-            return;
+            Wnd.Show();
         }
     }
 }

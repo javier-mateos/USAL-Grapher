@@ -99,7 +99,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
-                        <ContentPresenter Margin="0" VerticalAlignment="Center" HorizontalAlignment="Left" RecognizesAccessKey="True" />
+                        <ContentPresenter Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" RecognizesAccessKey="True" />
                     
                     </BulletDecorator>
                 </ControlTemplate>

@@ -67,7 +67,7 @@
 
                     <TextBlock Text="Auto-Gen" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                    <CheckBox x:Name="AutoGenCheck" HorizontalAlignment="Center"/>
+                    <CheckBox x:Name="AutoGenCheck" IsChecked="True" HorizontalAlignment="Center"/>
 
                 </StackPanel>
 

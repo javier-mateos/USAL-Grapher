@@ -85,10 +85,7 @@
         
         <Setter Property="BorderBrush">
             <Setter.Value>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0" />
-                    <GradientStop Color="White" Offset="1" />
-                </LinearGradientBrush>
+                <SolidColorBrush Color="#60FFFFFF"/>
             </Setter.Value>
         </Setter>
     </Style>
@@ -123,8 +120,14 @@
                                 </VisualState>
                                 
                                 <VisualState x:Name="Pressed" />
-                                
-                                <VisualState x:Name="Disabled" />
+
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Background.Color" Storyboard.TargetName="HeaderBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#05FFFFFF" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
                                 
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
@@ -201,7 +204,7 @@
                         </Trigger>
                         
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="Border" Property="Background" Value="Beige"/>
+                            <Setter TargetName="Border" Property="Background" Value="#05FFFFFF"/>
                         </Trigger>
                         
                     </ControlTemplate.Triggers>
