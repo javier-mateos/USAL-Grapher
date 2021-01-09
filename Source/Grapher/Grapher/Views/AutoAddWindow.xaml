@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Grapher"
         mc:Ignorable="d"
         
-        Title="Auto-Add Data" Height="370" Width="470" Icon="/Images/Logo/Logo_32px.ico"
+        Title="Auto-Add Data" Height="390" Width="480" Icon="/Images/Logo/Logo_32px.ico"
         Background="{StaticResource BaseBackgroundBrush}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
@@ -31,7 +31,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- Result -->
@@ -39,7 +39,7 @@
 
                 <TextBlock Text="Polynomial Expression" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="3x2 + 4x + 1"
+                <TextBox Text="{Binding Path=PolyExp.Values[0], UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource normalTextbox}"
                      FontFamily="{StaticResource RobotoRegular}"
                      FontSize="14" Foreground="#DDFFFFFF"
@@ -65,7 +65,7 @@
                          FontSize="14" Foreground="#DDFFFFFF">
 
                     <TextBox.Text>
-                        <Binding Path="XMinVal" Mode="TwoWay"
+                        <Binding Path="PolyExp.XMinVal" Mode="TwoWay"
                                      UpdateSourceTrigger="PropertyChanged">
 
                             <Binding.ValidationRules>
@@ -88,7 +88,7 @@
                          FontSize="14" Foreground="#DDFFFFFF">
 
                     <TextBox.Text>
-                        <Binding Path="XMaxVal" Mode="TwoWay"
+                        <Binding Path="PolyExp.XMaxVal" Mode="TwoWay"
                                      UpdateSourceTrigger="PropertyChanged">
 
                             <Binding.ValidationRules>
@@ -111,7 +111,7 @@
                          FontSize="14" Foreground="#DDFFFFFF">
 
                     <TextBox.Text>
-                        <Binding Path="GraphObject.Color" Mode="TwoWay"
+                        <Binding Path="PolyExp.Grade" Mode="TwoWay"
                                      UpdateSourceTrigger="PropertyChanged">
 
                             <Binding.ValidationRules>
@@ -149,9 +149,44 @@
         </Grid>
         
         <!-- Grades Table -->
-        <ListView Grid.Column="1" Margin="40 0 0 0">
+        <ListBox Grid.Column="1" Margin="40 0 0 0"
+                 ItemsSource="{Binding Path=PolyExp.Values, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             
-        </ListView>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="10">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Value"
+                                   Grid.Column="0" Padding="0 0 10 0"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Style="{StaticResource FormLabel}"/>
+
+                        <TextBox Grid.Column="1" Style="{StaticResource normalTextbox}"
+                         FontFamily="{StaticResource RobotoRegular}"
+                         FontSize="14" Foreground="#DDFFFFFF">
+
+                            <TextBox.Text>
+                                <Binding Path="." Mode="TwoWay"
+                                     UpdateSourceTrigger="PropertyChanged">
+
+                                    <Binding.ValidationRules>
+                                        <local:StringToInt ValidationStep="RawProposedValue"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+
+                        </TextBox>
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+        </ListBox>
         
     </Grid>
 </Window>

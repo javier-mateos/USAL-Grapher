@@ -73,6 +73,7 @@
     <Compile Include="Model\Data\Point2D.cs" />
     <Compile Include="Model\Data\Graph.cs" />
     <Compile Include="Model\Data\GraphType.cs" />
+    <Compile Include="Model\Data\PolynomialExpression.cs" />
     <Compile Include="Model\Data\Project.cs" />
     <Compile Include="Model\Helpers\CanvasTranslator.cs" />
     <Compile Include="Model\Helpers\EnumBindingSourceExtension.cs" />

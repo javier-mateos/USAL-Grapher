@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Grapher
@@ -7,22 +8,38 @@ namespace Grapher
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        #region Private Members
+
         private AutoAddWindow Wnd { get; set; }
 
-        #region Public Members
-        public Graph GraphObject { get; set; }
         #endregion
 
+
+        #region Public Members
+
+        public PolynomialExpression PolyExp { get; set; }
+        public string StringExpr { get; set; }
+
+        #endregion
+
+
         #region Commands
+
         public ICommand Add { get; set; }
         public ICommand Cancel { get; set; }
+
         #endregion
 
         public AutoAddViewModel(PolynomialExpression poly)
         {
+            /* Poly */
+            PolyExp = poly;
+
+            /* Commands */
             Add = new RelayCommand<object>(AddExecute, AddCanExecute);
             Cancel = new RelayCommand<object>(CancelExecute, CancelCanExecute);
 
+            /* Window*/
             Wnd = new AutoAddWindow();
             Wnd.DataContext = this;
 
