@@ -79,6 +79,8 @@
     <Compile Include="Model\Helpers\EnumDescriptionTypeConverter.cs" />
     <Compile Include="Validation\StringToDouble.cs" />
     <Compile Include="Validation\StringToHexColor.cs" />
+    <Compile Include="Validation\StringToInt.cs" />
+    <Compile Include="ViewModels\AutoAddViewModel.cs" />
     <Compile Include="ViewModels\EditGraphViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ManualAddViewModel.cs" />

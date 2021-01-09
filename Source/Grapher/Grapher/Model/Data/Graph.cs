@@ -28,6 +28,11 @@ namespace Grapher
         public ObservableCollection<Point2D> Points {get; set;}
 
         /// <summary>
+        /// Graph Polynomial Data
+        /// </summary>
+        public PolynomialExpression PolyExp { get; set; }
+
+        /// <summary>
         /// Graph Color
         /// </summary>
         public string Color { get; set; } = "#6035DC";
@@ -48,6 +53,7 @@ namespace Grapher
         public Graph()
         {
             Points = new ObservableCollection<Point2D>();
+            PolyExp = new PolynomialExpression();
 
             Points.Add(new Point2D { XValue = 15, YValue = 20 });
             Points.Add(new Point2D { XValue = 20, YValue = 30 });
@@ -55,13 +61,6 @@ namespace Grapher
             Points.Add(new Point2D { XValue = 50, YValue = 10 });
         }
 
-        public virtual void OnPropertyChanged(string propertyName)
-        {
-            var propertyChanged = PropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        
     }
 }

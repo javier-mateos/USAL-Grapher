@@ -24,7 +24,7 @@
                         <Border.BorderThickness>0</Border.BorderThickness>
 
                         <Border.BorderBrush>
-                            <SolidColorBrush Color="Transparent"/>
+                            <SolidColorBrush x:Name="BorderBrush" Color="Transparent"/>
                         </Border.BorderBrush>
 
                         <!-- TextBox Visual States -->
@@ -35,7 +35,7 @@
                                 
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Color">
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="BorderBrush" Storyboard.TargetProperty="Color">
                                             <EasingColorKeyFrame KeyTime="0" Value="#60FFFFFF" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>
@@ -43,7 +43,7 @@
                                 
                                 <VisualState x:Name="ReadOnly">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="Color">
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="BorderBrush" Storyboard.TargetProperty="Color">
                                             <EasingColorKeyFrame KeyTime="0" Value="{StaticResource Primary}" />
                                         </ColorAnimationUsingKeyFrames>
                                     </Storyboard>

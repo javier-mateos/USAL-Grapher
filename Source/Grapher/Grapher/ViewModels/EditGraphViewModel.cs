@@ -46,7 +46,7 @@ namespace Grapher
 
         private void AutoAddExecute(object obj)
         {
-
+            AutoAddViewModel autoVM = new AutoAddViewModel(GraphObject.PolyExp);
         }
 
         private bool DeleteDataCanExecute(object obj)

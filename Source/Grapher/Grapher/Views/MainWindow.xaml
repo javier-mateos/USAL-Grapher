@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Grapher"
         mc:Ignorable="d"
         
-        Title="Grapher" Height="1080" Width="1920" Icon="/Images/Logo/Logo_32px.ico"
+        Title="Grapher" Height="768" Width="1366" Icon="/Images/Logo/Logo_32px.ico"
         Background="{StaticResource BaseBackgroundBrush}"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized">
