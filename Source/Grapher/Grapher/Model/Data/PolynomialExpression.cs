@@ -8,14 +8,14 @@ namespace Grapher
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<int> Values { get; set; }
+        public ObservableCollection<PolynomialData> Values { get; set; }
         public int Grade { get; set; } = 0;
         public int XMinVal { get; set; } = 0;
         public int XMaxVal { get; set; } = 0;
 
         public PolynomialExpression()
         {
-            Values = new ObservableCollection<int>();
+            Values = new ObservableCollection<PolynomialData>();
 
             this.PropertyChanged += PolynomialExpression_PropertyChanged;
         }
@@ -33,8 +33,8 @@ namespace Grapher
                 }
                 else if (Values.Count < Grade)
                 {
-                    for (int i = 0; i < Grade - Count; i++)
-                        Values.Add(0);
+                    for (int i = Count; i < Grade; i++)
+                        Values.Add(new PolynomialData { Grade = i, Value = 0 });
                 }
                     
             }

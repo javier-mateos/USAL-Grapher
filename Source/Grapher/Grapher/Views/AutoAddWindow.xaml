@@ -39,7 +39,7 @@
 
                 <TextBlock Text="Polynomial Expression" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Path=PolyExp.Values[0], UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding Path=PolyExp.ToString, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource normalTextbox}"
                      FontFamily="{StaticResource RobotoRegular}"
                      FontSize="14" Foreground="#DDFFFFFF"
@@ -150,7 +150,7 @@
         
         <!-- Grades Table -->
         <ListBox Grid.Column="1" Margin="40 0 0 0"
-                 ItemsSource="{Binding Path=PolyExp.Values, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 ItemsSource="{Binding Path=PolyExp.Values}">
             
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -161,7 +161,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Value"
+                        <TextBlock Text="{Binding Grade, UpdateSourceTrigger=PropertyChanged}"
                                    Grid.Column="0" Padding="0 0 10 0"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
                                    Style="{StaticResource FormLabel}"/>
@@ -171,7 +171,7 @@
                          FontSize="14" Foreground="#DDFFFFFF">
 
                             <TextBox.Text>
-                                <Binding Path="." Mode="TwoWay"
+                                <Binding Path="Value" Mode="TwoWay"
                                      UpdateSourceTrigger="PropertyChanged">
 
                                     <Binding.ValidationRules>
