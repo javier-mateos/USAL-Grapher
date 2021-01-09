@@ -57,7 +57,7 @@
 
                 <!-- Close -->
                 <MenuItem Header="Close" Command="{Binding CloseProject}"/>
-                <MenuItem Header="Close all"/>
+                <MenuItem Header="Close all" Command="{Binding CloseAllProjects}"/>
 
                 <Separator/>
 
@@ -271,7 +271,8 @@
                     Style="{StaticResource projectsTabControl}"
                     ItemsSource="{Binding Projects, UpdateSourceTrigger=PropertyChanged}"
                     SelectedIndex="{Binding SelectedProjectIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionChanged="projectsTab_SelectionChanged">
+                    SelectionChanged="projectsTab_SelectionChanged"
+                    Foreground="Transparent">
 
             <!-- TabItem Header Template -->
             <TabControl.ItemTemplate>
@@ -311,7 +312,7 @@
 
         </TabControl>
 
-        <Canvas x:Name="graphCanvas"/>
+        <Canvas x:Name="graphCanvas" Margin="4"/>
 
     </DockPanel>
 </Window>

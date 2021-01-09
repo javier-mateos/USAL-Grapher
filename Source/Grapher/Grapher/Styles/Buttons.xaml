@@ -188,17 +188,20 @@
                 <ControlTemplate TargetType="Button">
 
                     <!-- Button -->
-                    <Border x:Name="Border"  
-                            BorderBrush="{StaticResource PrimaryColorBrush}"
+                    <Border x:Name="Border"
                             BorderThickness="2"
                             CornerRadius="2"
                             Height="32">
+
+                        <Border.BorderBrush>
+                            <SolidColorBrush x:Name="BorderBrushColor" Color="{StaticResource Primary}"/>
+                        </Border.BorderBrush>
 
                         <!-- Button Content -->
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
                                           RecognizesAccessKey="True"
-                                          Margin="12 7"/>
+                                          Margin="12 4"/>
 
                         <!-- Button States -->
                         <VisualStateManager.VisualStateGroups>

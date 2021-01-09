@@ -5,6 +5,9 @@ namespace Grapher
     [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     enum GraphType
     {
+        [Description("Polynomial Graph")]
+        Polynomial,
+
         [Description("Line Graph")]
         LineGraph,
 

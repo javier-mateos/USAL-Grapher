@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Grapher
+﻿namespace Grapher
 {
-    class CanvasTransalator
+    class CanvasTranslator
     {
         public static double XRealToXScreen(double xReal, double xMin, double xMax, double canvasWidth)
         {
             return canvasWidth * ((xReal - xMin) / (xMax - xMin));
         }
 
-        public static double XRealToYScreen(double yReal, double yMin, double yMax, double canvasHeight)
+        public static double YRealToYScreen(double yReal, double yMin, double yMax, double canvasHeight)
         {
             return canvasHeight * (1 - ((yReal - yMin) / (yMax - yMin)));
         }

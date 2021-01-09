@@ -92,12 +92,12 @@ namespace Grapher
 
         private bool CloseProjectCanExecute(object obj)
         {
-            return (Projects.Count > 0 ? true : false);
+            return (Projects.Count > 0 && SelectedProjectIndex != -1) ? true : false;
         }
 
         private void CloseProjectExecute(object obj)
         {
-            Projects.Remove((Project)obj);
+            Projects.RemoveAt(SelectedProjectIndex);
         }
 
         private bool CloseAllProjectsCanExecute(object obj)
@@ -208,7 +208,7 @@ namespace Grapher
         #endregion
 
 
-        #region Events Commands
+        #region Window Commands
         
         private bool WindowSizeChangedCanExecute(object obj)
         {
@@ -233,12 +233,16 @@ namespace Grapher
                     foreach (Project project in e.NewItems)
                     {
                         project.Graphs.CollectionChanged += Graphs_CollectionChanged;
+
+                        RefreshCanvas();
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     foreach (Project project in e.OldItems)
                     {
                         project.Graphs.CollectionChanged -= Graphs_CollectionChanged;
+
+                        RefreshCanvas();
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
@@ -337,21 +341,65 @@ namespace Grapher
 
         public void RefreshCanvas()
         {
-            if (Projects.Count <= 0 && SelectedProjectIndex < 0)
-                return;
-
             GraphCanvas.Children.Clear();
 
-            foreach (Graph graph in Projects[SelectedProjectIndex].Graphs)
+            if (Projects.Count <= 0 || SelectedProjectIndex < 0)
+                return;
+
+            Project currentProject;
+
+            try
             {
+                currentProject = Projects[SelectedProjectIndex];
+            }
+                
+            catch (Exception)
+            {
+                return;
+            }
+
+
+            if (currentProject.Graphs.Count <= 0)
+                return;
+
+            if (currentProject.Graphs[0].Points.Count <= 0)
+                return;
+
+
+            double xMin = currentProject.Graphs[0].Points[0].XValue;
+            double xMax = currentProject.Graphs[0].Points[0].XValue;
+            double yMin = currentProject.Graphs[0].Points[0].YValue;
+            double yMax = currentProject.Graphs[0].Points[0].YValue;
+
+            foreach (Graph tmpGraph in Projects[SelectedProjectIndex].Graphs)
+            {
+                if (!tmpGraph.IsVisible)
+                    continue;
+
+                foreach (Point2D point in tmpGraph.Points)
+                {
+                    xMin = (xMin > point.XValue) ? point.XValue : xMin;
+                    xMax = (xMax < point.XValue) ? point.XValue : xMax;
+                    yMin = (yMin > point.YValue) ? point.YValue : yMin;
+                    yMax = (yMax < point.YValue) ? point.YValue : yMax;
+                }
+            }
+
+            for (int i = Projects[SelectedProjectIndex].Graphs.Count-1; i >= 0; i--)
+            {
+                Graph graph = Projects[SelectedProjectIndex].Graphs[i];
+
                 switch (graph.Type)
                 {
                     case GraphType.LineGraph:
-
+                        
                         Polyline tmpPoly = new Polyline();
 
                         foreach (Point2D point in graph.Points)
-                            tmpPoly.Points.Add(new Point { X = point.XValue, Y = point.YValue });
+                            tmpPoly.Points.Add(new Point {
+                                X = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth), 
+                                Y = CanvasTranslator.YRealToYScreen(point.YValue, yMin, yMax, GraphCanvas.ActualHeight)
+                            });
 
                         tmpPoly.Opacity = graph.Opacity;
                         tmpPoly.StrokeThickness = graph.Thickness;
@@ -366,10 +414,10 @@ namespace Grapher
                         {
                             Line tmpLine = new Line();
 
-                            tmpLine.X1 = point.XValue;
-                            tmpLine.Y1 = 0;
-                            tmpLine.X2 = point.XValue;
-                            tmpLine.Y2 = point.YValue;
+                            tmpLine.X1 = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth);
+                            tmpLine.Y1 = GraphCanvas.ActualHeight;
+                            tmpLine.X2 = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth);
+                            tmpLine.Y2 = CanvasTranslator.YRealToYScreen(point.YValue, yMin, yMax, GraphCanvas.ActualHeight);
 
                             tmpLine.Opacity = graph.Opacity;
                             tmpLine.StrokeThickness = graph.Thickness;
@@ -385,11 +433,6 @@ namespace Grapher
             }
 
             
-        }
-
-        private double ObjectToCanvasCalc()
-        {
-
         }
 
         #endregion
