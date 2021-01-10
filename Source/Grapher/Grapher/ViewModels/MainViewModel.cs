@@ -13,9 +13,6 @@ namespace Grapher
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        Random rnd;
-
-
         #region Public Members
 
         public ObservableCollection<Project> Projects { get; set; }
@@ -23,6 +20,10 @@ namespace Grapher
         public int SelectedProjectIndex { get; set; } = 0;
 
         public Canvas GraphCanvas { get; set; }
+
+
+        public Point2D SelectionStart { get; set; }
+        public Point2D SelectionEnd { get; set; }
 
         #endregion
 
@@ -48,8 +49,9 @@ namespace Grapher
         #region Constructor
         public MainViewModel()
         {
-            /* Temp */
-            rnd = new Random();
+            /* Selection Points */
+            SelectionStart = new Point2D { XValue = double.NaN, YValue = double.NaN };
+            SelectionEnd = new Point2D { XValue = double.NaN, YValue = double.NaN };
 
             /* Project Commands */
             NewProject = new RelayCommand<object>(NewProjectExecute, NewProjectCanExecute);
@@ -70,9 +72,11 @@ namespace Grapher
             /* Project Collection */
             Projects = new ObservableCollection<Project>();
 
-            /* Subscribe to Project CollectionChanged Event */
+            /* Subscribe to Events */
             Projects.CollectionChanged += Projects_CollectionChanged;
 
+            SelectionStart.PropertyChanged += RefreshCanvasProperty;
+            SelectionEnd.PropertyChanged += RefreshCanvasProperty;
         }
 
         #endregion
@@ -87,7 +91,7 @@ namespace Grapher
 
         private void NewProjectExecute(object obj)
         {
-            Projects.Add(new Project { Name = "Test Project " + rnd.Next(10) });
+            Projects.Add(new Project { Name = "New Project" });
         }
 
         private bool CloseProjectCanExecute(object obj)
@@ -122,7 +126,7 @@ namespace Grapher
 
         private void NewGraphExecute(object obj)
         {
-            Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "Test Graph " + rnd.Next(10) });
+            Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "New Graph"});
         }
 
         private bool EditGraphCanExecute(object obj)
@@ -372,6 +376,46 @@ namespace Grapher
             /* Return if no graphs */
             if (currentProject.Graphs.Count <= 0)
                 return;
+
+            /* Draw Selection Rectangle if needed */
+            if(!double.IsNaN(SelectionStart.XValue) && !double.IsNaN(SelectionStart.YValue) && !double.IsNaN(SelectionEnd.XValue) && !double.IsNaN(SelectionEnd.YValue))
+            {
+                /* Local points. Avoiding negative Widths and Heights */
+                Point2D localStart = SelectionStart;
+                Point2D localEnd = SelectionEnd;
+                double temp;
+
+                if ((localEnd.XValue - localStart.XValue - 1) >= 0 && (localEnd.YValue - localStart.YValue - 1) >= 0)
+                {
+                    /* Check which one is greater than */
+                    if (localStart.XValue > localEnd.XValue)
+                    {
+                        temp = localStart.XValue;
+                        localStart.XValue = localEnd.XValue;
+                        localEnd.XValue = temp;
+                    }
+
+                    if (localStart.YValue > localEnd.YValue)
+                    {
+                        temp = localStart.YValue;
+                        localStart.YValue = localEnd.YValue;
+                        localEnd.YValue = temp;
+                    }
+
+                    Rectangle selectionRect = new Rectangle();
+
+                    selectionRect.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#40303030"));
+                    selectionRect.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#40323232"));
+                    selectionRect.StrokeThickness = 1;
+
+                    Canvas.SetTop(selectionRect, localStart.YValue);
+                    Canvas.SetLeft(selectionRect, localStart.XValue);
+                    selectionRect.Width = localEnd.XValue - localStart.XValue - 1;
+                    selectionRect.Height = localEnd.YValue - localStart.YValue - 1;
+
+                    GraphCanvas.Children.Add(selectionRect);
+                }
+            }
 
             /* Calculate points for polynomial expression graphs */
             foreach (Graph graph in currentProject.Graphs)

@@ -312,7 +312,11 @@
 
         </TabControl>
 
-        <Canvas x:Name="graphCanvas" Margin="4"/>
+        <Canvas x:Name="graphCanvas" Margin="4 0 4 4"
+                Background="Transparent"
+                MouseLeftButtonDown="graphCanvas_MouseLeftButtonDown"
+                MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp"
+                MouseMove="graphCanvas_MouseMove"/>
 
     </DockPanel>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -6,16 +7,16 @@ namespace Grapher
 {
     public partial class MainWindow : Window
     {
-        MainViewModel MainVm { get; set; }
+        MainViewModel MainVM { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
-            MainVm = new MainViewModel();
+            MainVM = new MainViewModel();
 
-            this.DataContext = MainVm;
-            MainVm.GraphCanvas = graphCanvas;
+            this.DataContext = MainVM;
+            MainVM.GraphCanvas = graphCanvas;
 
         }
 
@@ -36,7 +37,32 @@ namespace Grapher
         {
             e.Handled = true;
 
-            MainVm.RefreshCanvas();
+            MainVM.RefreshCanvas();
+        }
+
+        private void graphCanvas_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MainVM.SelectionStart.XValue = e.GetPosition(graphCanvas).X;
+            MainVM.SelectionStart.YValue = e.GetPosition(graphCanvas).Y;
+            MainVM.SelectionEnd.XValue = double.NaN;
+            MainVM.SelectionEnd.YValue = double.NaN;
+        }
+
+        private void graphCanvas_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            MainVM.SelectionStart.XValue = double.NaN;
+            MainVM.SelectionStart.YValue = double.NaN;
+            MainVM.SelectionEnd.XValue = double.NaN;
+            MainVM.SelectionEnd.YValue = double.NaN;
+        }
+
+        private void graphCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (e.LeftButton != System.Windows.Input.MouseButtonState.Pressed)
+                return;
+
+            MainVM.SelectionEnd.XValue = e.GetPosition(graphCanvas).X;
+            MainVM.SelectionEnd.YValue = e.GetPosition(graphCanvas).Y;
         }
     }
 }
