@@ -250,8 +250,6 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     foreach (Graph graph in e.NewItems)
                     {
-                        //MessageBox.Show("Añado grafica");
-
                         graph.Points.CollectionChanged += Points_CollectionChanged;
                         graph.PropertyChanged += RefreshCanvasProperty;
 
@@ -264,8 +262,6 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     foreach (Graph graph in e.OldItems)
                     {
-                        //MessageBox.Show("Borro grafica");
-
                         graph.Points.CollectionChanged -= Points_CollectionChanged;
                         graph.PropertyChanged -= RefreshCanvasProperty;
 
@@ -290,8 +286,6 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     foreach (Point2D point in e.NewItems)
                     {
-                        //MessageBox.Show(sender.ToString());
-
                         point.PropertyChanged += RefreshCanvasProperty;
 
                         RefreshCanvas();
@@ -300,18 +294,13 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     foreach (Point2D point in e.OldItems)
                     {
-                        //MessageBox.Show("Borro punto");
-
                         point.PropertyChanged -= RefreshCanvasProperty;
 
                         RefreshCanvas();
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    RefreshCanvas();
                     break;
                 default:
                     break;
@@ -325,17 +314,13 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     foreach (MonomialMember mon in e.NewItems)
                     {
-                        //MessageBox.Show("Nuevo monomio");
-
                         mon.PropertyChanged += RefreshCanvasProperty;
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     foreach (MonomialMember mon in e.OldItems)
                     {
-                        //MessageBox.Show("Borro monomio");
-
-                        mon.PropertyChanged -= RefreshCanvasProperty;
+                       mon.PropertyChanged -= RefreshCanvasProperty;
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
@@ -464,7 +449,7 @@ namespace Grapher
                     Y1 = CanvasTranslator.YRealToYScreen(0, yMin, yMax, GraphCanvas.ActualHeight),
                     X2 = GraphCanvas.ActualWidth,
                     Y2 = CanvasTranslator.YRealToYScreen(0, yMin, yMax, GraphCanvas.ActualHeight),
-                    Stroke = Brushes.DarkGray,
+                    Stroke = new SolidColorBrush { Color = (Color)ColorConverter.ConvertFromString("#272727") },
                     StrokeThickness = 1
                 };
                 GraphCanvas.Children.Add(XAxis);
@@ -475,7 +460,7 @@ namespace Grapher
                     Y1 = 0,
                     X2 = CanvasTranslator.XRealToXScreen(0, xMin, xMax, GraphCanvas.ActualWidth),
                     Y2 = GraphCanvas.ActualHeight,
-                    Stroke = Brushes.DarkGray,
+                    Stroke = new SolidColorBrush { Color = (Color)ColorConverter.ConvertFromString("#272727") },
                     StrokeThickness = 1
                 };
                 GraphCanvas.Children.Add(YAxis);
