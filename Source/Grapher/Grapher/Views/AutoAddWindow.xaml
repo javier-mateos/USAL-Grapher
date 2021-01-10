@@ -38,7 +38,7 @@
 
                 <TextBlock Text="Polynomial Expression" Style="{StaticResource FormLabel}" Margin="0 0 0 4"/>
 
-                <TextBox Text="{Binding Path=PolyExp, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding Path=StringExp, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource normalTextbox}"
                      FontFamily="{StaticResource RobotoRegular}"
                      FontSize="14" Foreground="#DDFFFFFF"
@@ -127,7 +127,7 @@
         
         <!-- Grades Table -->
         <ListBox Grid.Column="1" Margin="40 0 0 0"
-                 ItemsSource="{Binding Path=PolyExp.Values}">
+                 ItemsSource="{Binding Path=PolyExp.Monomials}">
             
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -138,7 +138,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{Binding Grade, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBlock Text="{Binding Grade, UpdateSourceTrigger=PropertyChanged, StringFormat='Grade {0}'}"
                                    Grid.Column="0" Padding="0 0 10 0"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
                                    Style="{StaticResource FormLabel}"/>

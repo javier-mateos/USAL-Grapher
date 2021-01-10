@@ -3,7 +3,7 @@
 
 namespace Grapher
 {
-    class PolynomialData : INotifyPropertyChanged
+    class MonomialMember : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

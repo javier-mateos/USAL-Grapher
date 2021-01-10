@@ -9,10 +9,7 @@ namespace Grapher
         LineGraph,
 
         [Description("Bar Graph")]
-        BarGraph,
-
-        [Description("Polynomial Graph")]
-        Polynomial
+        BarGraph
     }
 
 }

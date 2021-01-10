@@ -9,7 +9,7 @@
 
         public static double YRealToYScreen(double yReal, double yMin, double yMax, double canvasHeight)
         {
-            return canvasHeight * (1 - ((yReal - yMin) / (yMax - yMin)));
+            return ((canvasHeight * (yMax - yReal)) / (yMax - yMin));
         }
 
         /*public static double XScreenToXReal(double x, double Width, RepresentationParameters RepresentationParameters)

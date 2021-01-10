@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 
 namespace Grapher
 {
@@ -8,14 +7,16 @@ namespace Grapher
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<PolynomialData> Values { get; set; }
+        public ObservableCollection<MonomialMember> Monomials{ get; set; }
+        public ObservableCollection<Point2D> CalculatedPoints { get; set; }
         public int Grade { get; set; } = 0;
         public int XMinVal { get; set; } = 0;
         public int XMaxVal { get; set; } = 0;
 
         public PolynomialExpression()
         {
-            Values = new ObservableCollection<PolynomialData>();
+            Monomials = new ObservableCollection<MonomialMember>();
+            CalculatedPoints = new ObservableCollection<Point2D>();
 
             this.PropertyChanged += PolynomialExpression_PropertyChanged;
         }
@@ -24,35 +25,20 @@ namespace Grapher
         {
             if(e.PropertyName.Equals("Grade"))
             {
-                int Count = Values.Count;
+                int Count = Monomials.Count;
 
-                if (Values.Count > Grade)
+                if (Monomials.Count - 1> Grade)
                 {
-                    for (int i = 0; i < Count - Grade; i++)
-                        Values.RemoveAt(Values.Count-1);
+                    for (int i = Grade; i < Count - 1; i++)
+                        Monomials.RemoveAt(Monomials.Count-1);
                 }
-                else if (Values.Count < Grade)
+                else if (Monomials.Count < Grade + 1)
                 {
-                    for (int i = Count; i < Grade; i++)
-                        Values.Add(new PolynomialData { Grade = i, Value = 0 });
+                    for (int i = Count; i < Grade + 1; i++)
+                        Monomials.Add(new MonomialMember { Grade = i, Value = 0 });
                 }
                     
             }
-        }
-
-        public override string ToString()
-        {
-            /*string tmp = string.Empty;
-
-            foreach(int value in Values)
-            {
-                tmp += (value >= 0) ? "+ " : "- ";
-                tmp += value.ToString() + "x^" + Values.IndexOf(value).ToString() + " ";
-            }
-
-            return tmp;*/
-
-            return "pepe";
         }
     }
 }

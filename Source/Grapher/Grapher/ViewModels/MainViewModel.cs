@@ -21,7 +21,7 @@ namespace Grapher
         public ObservableCollection<Project> Projects { get; set; }
 
         public int SelectedProjectIndex { get; set; } = 0;
-        
+
         public Canvas GraphCanvas { get; set; }
 
         #endregion
@@ -165,7 +165,7 @@ namespace Grapher
         {
             int graphIndex = Projects[SelectedProjectIndex].Graphs.IndexOf((Graph)obj); ;
             Graph temp = Projects[SelectedProjectIndex].Graphs[graphIndex];
-            
+
             Projects[SelectedProjectIndex].Graphs[graphIndex] = Projects[SelectedProjectIndex].Graphs[graphIndex - 1];
             Projects[SelectedProjectIndex].Graphs[graphIndex - 1] = temp;
         }
@@ -209,7 +209,7 @@ namespace Grapher
 
 
         #region Window Commands
-        
+
         private bool WindowSizeChangedCanExecute(object obj)
         {
             return (Projects.Count > 0 && SelectedProjectIndex != -1) ? true : false;
@@ -231,30 +231,16 @@ namespace Grapher
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     foreach (Project project in e.NewItems)
-                    {
                         project.Graphs.CollectionChanged += Graphs_CollectionChanged;
-
-                        RefreshCanvas();
-                    }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     foreach (Project project in e.OldItems)
-                    {
                         project.Graphs.CollectionChanged -= Graphs_CollectionChanged;
-
-                        RefreshCanvas();
-                    }
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
                     break;
                 default:
                     break;
             }
-            
+
         }
 
         private void Graphs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -264,8 +250,13 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     foreach (Graph graph in e.NewItems)
                     {
-                        graph.Points.CollectionChanged += RefreshCanvasCollection;
+                        //MessageBox.Show("Añado grafica");
+
+                        graph.Points.CollectionChanged += Points_CollectionChanged;
                         graph.PropertyChanged += RefreshCanvasProperty;
+
+                        graph.PolyExp.Monomials.CollectionChanged += Values_CollectionChanged;
+                        graph.PolyExp.PropertyChanged += RefreshCanvasProperty;
 
                         RefreshCanvas();
                     }
@@ -273,20 +264,19 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     foreach (Graph graph in e.OldItems)
                     {
-                        graph.Points.CollectionChanged -= RefreshCanvasCollection;
+                        //MessageBox.Show("Borro grafica");
+
+                        graph.Points.CollectionChanged -= Points_CollectionChanged;
                         graph.PropertyChanged -= RefreshCanvasProperty;
+
+                        graph.PolyExp.Monomials.CollectionChanged -= Values_CollectionChanged;
+                        graph.PolyExp.PropertyChanged -= RefreshCanvasProperty;
 
                         RefreshCanvas();
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
                     RefreshCanvas();
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
-                    RefreshCanvas();
-
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
                     break;
                 default:
                     break;
@@ -300,6 +290,8 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     foreach (Point2D point in e.NewItems)
                     {
+                        //MessageBox.Show(sender.ToString());
+
                         point.PropertyChanged += RefreshCanvasProperty;
 
                         RefreshCanvas();
@@ -308,6 +300,8 @@ namespace Grapher
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
                     foreach (Point2D point in e.OldItems)
                     {
+                        //MessageBox.Show("Borro punto");
+
                         point.PropertyChanged -= RefreshCanvasProperty;
 
                         RefreshCanvas();
@@ -324,9 +318,35 @@ namespace Grapher
             }
         }
 
-        private void RefreshCanvasCollection(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Values_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            RefreshCanvas();
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    foreach (MonomialMember mon in e.NewItems)
+                    {
+                        //MessageBox.Show("Nuevo monomio");
+
+                        mon.PropertyChanged += RefreshCanvasProperty;
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    foreach (MonomialMember mon in e.OldItems)
+                    {
+                        //MessageBox.Show("Borro monomio");
+
+                        mon.PropertyChanged -= RefreshCanvasProperty;
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Move:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void RefreshCanvasProperty(object sender, PropertyChangedEventArgs e)
@@ -341,42 +361,92 @@ namespace Grapher
 
         public void RefreshCanvas()
         {
+            /* Canvas Center Point */
+            double XCenter = GraphCanvas.ActualWidth / 2;
+            double YCenter = GraphCanvas.ActualHeight / 2;
+
+            /* Clear Canvas */
             GraphCanvas.Children.Clear();
 
+            /* Return if no project is active */
             if (Projects.Count <= 0 || SelectedProjectIndex < 0)
                 return;
 
+            /* Select current project */
             Project currentProject;
 
             try
             {
                 currentProject = Projects[SelectedProjectIndex];
             }
-                
             catch (Exception)
             {
                 return;
             }
 
-
+            /* Return if no graphs */
             if (currentProject.Graphs.Count <= 0)
                 return;
 
-            if (currentProject.Graphs[0].Points.Count <= 0)
-                return;
-
-
-            double xMin = currentProject.Graphs[0].Points[0].XValue;
-            double xMax = currentProject.Graphs[0].Points[0].XValue;
-            double yMin = currentProject.Graphs[0].Points[0].YValue;
-            double yMax = currentProject.Graphs[0].Points[0].YValue;
-
-            foreach (Graph tmpGraph in Projects[SelectedProjectIndex].Graphs)
+            /* Calculate points for polynomial expression graphs */
+            foreach (Graph graph in currentProject.Graphs)
             {
-                if (!tmpGraph.IsVisible)
+                if (!graph.IsAutoGenerated)
                     continue;
 
-                foreach (Point2D point in tmpGraph.Points)
+                if (graph.PolyExp.Monomials.Count <= 0)
+                    continue;
+
+                graph.Points.Clear();
+
+                MathCalc.PolynomialCalculator(graph.PolyExp, GraphCanvas.ActualWidth);
+            }
+
+            /* Current Graph Point List (To read both normal and auto-generated graphs). ObservableCollection for avoiding castings */
+            ObservableCollection<Point2D> pointList = new ObservableCollection<Point2D>();
+
+            /* X and Y variables */
+            double xMin, xMax, yMin, yMax;
+            xMax = xMin = yMax = yMin = double.NaN;
+
+            /* Serach for points as reference */
+            foreach (Graph graph in currentProject.Graphs)
+            {
+                if (!graph.IsVisible)
+                    continue;
+
+                if (graph.IsAutoGenerated)
+                    pointList = graph.PolyExp.CalculatedPoints;
+                else
+                    pointList = graph.Points;
+
+                if (pointList.Count > 0)
+                {
+                    xMin = pointList[0].XValue;
+                    xMax = pointList[0].XValue;
+                    yMin = pointList[0].YValue;
+                    yMax = pointList[0].YValue;
+
+                    break;
+                }
+            }
+
+            /* Return if no points */
+            if (double.IsNaN(xMax) || double.IsNaN(xMin) || double.IsNaN(yMax) || double.IsNaN(yMin))
+                return;
+
+            /* Search Max and Min values */
+            foreach (Graph graph in currentProject.Graphs)
+            {
+                if (!graph.IsVisible)
+                    continue;
+
+                if (graph.IsAutoGenerated)
+                    pointList = graph.PolyExp.CalculatedPoints;
+                else
+                    pointList = graph.Points;
+
+                foreach (Point2D point in pointList)
                 {
                     xMin = (xMin > point.XValue) ? point.XValue : xMin;
                     xMax = (xMax < point.XValue) ? point.XValue : xMax;
@@ -385,27 +455,62 @@ namespace Grapher
                 }
             }
 
-            for (int i = Projects[SelectedProjectIndex].Graphs.Count-1; i >= 0; i--)
+            try
             {
-                Graph graph = Projects[SelectedProjectIndex].Graphs[i];
+                /* Draw Axis */
+                Line XAxis = new Line()
+                {
+                    X1 = 0,
+                    Y1 = CanvasTranslator.YRealToYScreen(0, yMin, yMax, GraphCanvas.ActualHeight),
+                    X2 = GraphCanvas.ActualWidth,
+                    Y2 = CanvasTranslator.YRealToYScreen(0, yMin, yMax, GraphCanvas.ActualHeight),
+                    Stroke = Brushes.DarkGray,
+                    StrokeThickness = 1
+                };
+                GraphCanvas.Children.Add(XAxis);
+
+                Line YAxis = new Line()
+                {
+                    X1 = CanvasTranslator.XRealToXScreen(0, xMin, xMax, GraphCanvas.ActualWidth),
+                    Y1 = 0,
+                    X2 = CanvasTranslator.XRealToXScreen(0, xMin, xMax, GraphCanvas.ActualWidth),
+                    Y2 = GraphCanvas.ActualHeight,
+                    Stroke = Brushes.DarkGray,
+                    StrokeThickness = 1
+                };
+                GraphCanvas.Children.Add(YAxis);
+            }
+            catch (Exception)
+            {
+
+            }
+
+            /* Draw shapes depending of graph type */
+            for (int i = currentProject.Graphs.Count - 1; i >= 0; i--)
+            {
+                Graph graph = currentProject.Graphs[i];
 
                 switch (graph.Type)
                 {
                     #region LineGraph
                     case GraphType.LineGraph:
-                        
+
                         Polyline tmpPoly = new Polyline();
 
-                        foreach (Point2D point in graph.Points)
-                            tmpPoly.Points.Add(new Point {
-                                X = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth), 
+                        if (graph.IsAutoGenerated)
+                            pointList = graph.PolyExp.CalculatedPoints;
+                        else
+                            pointList = graph.Points;
+
+                        foreach (Point2D point in pointList)
+                            tmpPoly.Points.Add(new Point
+                            {
+                                X = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth),
                                 Y = CanvasTranslator.YRealToYScreen(point.YValue, yMin, yMax, GraphCanvas.ActualHeight)
                             });
 
                         switch (graph.Dash)
                         {
-                            case DashType.None:
-                                break;
                             case DashType.Dot:
                                 tmpPoly.StrokeDashArray = new DoubleCollection() { 1, 2 };
                                 break;
@@ -439,7 +544,13 @@ namespace Grapher
 
                     #region BarGraph
                     case GraphType.BarGraph:
-                        foreach (Point2D point in graph.Points)
+
+                        if (graph.IsAutoGenerated)
+                            pointList = graph.PolyExp.CalculatedPoints;
+                        else
+                            pointList = graph.Points;
+
+                        foreach (Point2D point in pointList)
                         {
                             Line tmpLine = new Line();
 
@@ -450,8 +561,6 @@ namespace Grapher
 
                             switch (graph.Dash)
                             {
-                                case DashType.None:
-                                    break;
                                 case DashType.Dot:
                                     tmpLine.StrokeDashArray = new DoubleCollection() { 1 };
                                     break;
@@ -488,7 +597,6 @@ namespace Grapher
                 }
             }
 
-            
         }
 
         #endregion
