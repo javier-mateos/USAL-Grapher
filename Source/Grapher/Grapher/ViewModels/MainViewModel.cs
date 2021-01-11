@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Grapher
@@ -39,6 +42,7 @@ namespace Grapher
         public ICommand TogleVisibilityGraph { get; set; }
 
         public ICommand FinishedSelection { get; set; }
+        public ICommand ExportCanvas { get; set; }
 
         public ICommand WindowSizeChanged { get; set; }
 
@@ -66,6 +70,7 @@ namespace Grapher
 
             /* Canvas Commands */
             FinishedSelection = new RelayCommand<object>(FinishedSelectionExecute, FinishedSelectionCanExecute);
+            ExportCanvas = new RelayCommand<object>(ExportCanvasExecute, ExportCanvasCanExecute);
 
             /* Window Commands */
             WindowSizeChanged = new RelayCommand<object>(WindowSizeChangedExecute, WindowSizeChangedCanExecute);
@@ -222,6 +227,55 @@ namespace Grapher
         private void FinishedSelectionExecute(object obj)
         {
             TrimCanvas();
+        }
+
+        private bool ExportCanvasCanExecute(object obj)
+        {
+            return (Projects.Count > 0 && SelectedProjectIndex != -1) ? true : false;
+        }
+
+        private void ExportCanvasExecute(object obj)
+        {
+            /* File destination folder + name */
+            SaveFileDialog saveDialog = new SaveFileDialog();
+
+            saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            saveDialog.Filter = "PNG File (*.png)|*.png|JPEG File (*.jpeg)|*.jpeg";
+            
+
+            if (saveDialog.ShowDialog() == true)
+            {
+                /* Canvas image render */
+                RenderTargetBitmap render = new RenderTargetBitmap((int)GraphCanvas.RenderSize.Width, (int)GraphCanvas.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+                render.Render(GraphCanvas);
+
+                switch (System.IO.Path.GetExtension(saveDialog.FileName).ToLower())
+                {
+                    case ".png":
+                        BitmapEncoder pngEncoder = new PngBitmapEncoder();
+                        pngEncoder.Frames.Add(BitmapFrame.Create(render));
+
+                        using (FileStream fs = File.OpenWrite(saveDialog.FileName))
+                        {
+                            pngEncoder.Save(fs);
+                        }
+
+                        break;
+
+                    case ".jpeg":
+                        BitmapEncoder jpegEncoder = new JpegBitmapEncoder();
+                        jpegEncoder.Frames.Add(BitmapFrame.Create(render));
+
+                        using (FileStream fs = System.IO.File.OpenWrite(saveDialog.FileName))
+                        {
+                            jpegEncoder.Save(fs);
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+            } 
         }
 
         #endregion

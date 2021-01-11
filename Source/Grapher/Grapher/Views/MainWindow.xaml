@@ -61,9 +61,8 @@
 
                 <Separator/>
 
-                <!-- Import & Export -->
-                <MenuItem Header="Import"/>
-                <MenuItem Header="Export"/>
+                <!-- Export -->
+                <MenuItem Header="Export project" Command="{Binding ExportCanvas}"/>
 
                 <Separator/>
 
@@ -71,19 +70,9 @@
 
             </MenuItem>
 
-            <!-- Edit -->
-            <MenuItem Header="Edit">
-                <MenuItem Header="TestItem"/>
-            </MenuItem>
-
             <!-- View -->
             <MenuItem Header="View">
                 <MenuItem Name="swapPanelsMenuItem" Header="Swap Panels" Click="swapPanelsMenuItem_Click"/>
-            </MenuItem>
-
-            <!-- Help -->
-            <MenuItem Header="Help">
-                <MenuItem Header="TestItem"/>
             </MenuItem>
 
         </Menu>
