@@ -216,7 +216,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\BarChartGraph.png" />
+    <Resource Include="Images\LineChartGraph.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Logo\Logo_16px.ico" />
     <Resource Include="Images\Logo\Logo_256px.ico" />
