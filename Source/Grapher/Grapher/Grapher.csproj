@@ -71,10 +71,11 @@
     <Compile Include="Converters\GraphTypeConverter.cs" />
     <Compile Include="Converters\GraphVisibilityIconConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
-    <Compile Include="Model\Data\DashType.cs" />
+    <Compile Include="Model\Data\CanvasData.cs" />
+    <Compile Include="Model\Enums\DashType.cs" />
     <Compile Include="Model\Data\Point2D.cs" />
     <Compile Include="Model\Data\Graph.cs" />
-    <Compile Include="Model\Data\GraphType.cs" />
+    <Compile Include="Model\Enums\GraphType.cs" />
     <Compile Include="Model\Data\MonomialMember.cs" />
     <Compile Include="Model\Data\PolynomialExpression.cs" />
     <Compile Include="Model\Data\Project.cs" />

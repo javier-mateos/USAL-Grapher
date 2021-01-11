@@ -20,10 +20,7 @@ namespace Grapher
         public int SelectedProjectIndex { get; set; } = 0;
 
         public Canvas GraphCanvas { get; set; }
-
-
-        public Point2D SelectionStart { get; set; }
-        public Point2D SelectionEnd { get; set; }
+        public CanvasData GraphCanvasData { get; set; }
 
         #endregion
 
@@ -51,9 +48,8 @@ namespace Grapher
         #region Constructor
         public MainViewModel()
         {
-            /* Selection Points */
-            SelectionStart = new Point2D { XValue = double.NaN, YValue = double.NaN };
-            SelectionEnd = new Point2D { XValue = double.NaN, YValue = double.NaN };
+            /* Canvas Data */
+            GraphCanvasData = new CanvasData();
 
             /* Project Commands */
             NewProject = new RelayCommand<object>(NewProjectExecute, NewProjectCanExecute);
@@ -80,8 +76,8 @@ namespace Grapher
             /* Subscribe to Events */
             Projects.CollectionChanged += Projects_CollectionChanged;
 
-            SelectionStart.PropertyChanged += RefreshCanvasProperty;
-            SelectionEnd.PropertyChanged += RefreshCanvasProperty;
+            GraphCanvasData.SelectionStart.PropertyChanged += RefreshCanvasProperty;
+            GraphCanvasData.SelectionEnd.PropertyChanged += RefreshCanvasProperty;
         }
 
         #endregion
@@ -386,10 +382,9 @@ namespace Grapher
             }
 
             /* Local points. Avoiding negative Widths and Heights */
-            Point2D localStart = SelectionStart;
-            Point2D localEnd = SelectionEnd;
+            Point2D localStart = GraphCanvasData.SelectionStart;
+            Point2D localEnd = GraphCanvasData.SelectionEnd;
             double temp;
-
 
             /* Check which one is greater than */
             if (localStart.XValue > localEnd.XValue)
@@ -409,12 +404,24 @@ namespace Grapher
 
             foreach (Graph graph in currentProject.Graphs)
             {
-                foreach (Point2D point in graph.Points)
+                for (int i = 0; i < graph.Points.Count-1; i++)
                 {
-                    /*if ((point.XValue == ) && (point.YValue == ))
-                        graph.Points.Remove(point);*/
+                    Point2D point = graph.Points[i];
+
+                    bool LowerX = (point.XValue < CanvasTranslator.XScreenToXReal(localStart.XValue, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth)) ? true : false;
+                    bool HigherX = (point.XValue > CanvasTranslator.XScreenToXReal(localEnd.XValue, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth)) ? true : false;
+                    bool LowerY = (point.YValue < CanvasTranslator.YScreenToYReal(localStart.YValue, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight)) ? true : false;
+                    bool HigherY = (point.YValue > CanvasTranslator.YScreenToYReal(localEnd.YValue, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight)) ? true : false;
+
+                    if (LowerX || HigherX || LowerY || HigherY)
+                        graph.Points.Remove(point);
                 }
             }
+
+            GraphCanvasData.SelectionStart.XValue = double.NaN;
+            GraphCanvasData.SelectionStart.YValue = double.NaN;
+            GraphCanvasData.SelectionEnd.XValue = double.NaN;
+            GraphCanvasData.SelectionEnd.YValue = double.NaN;
 
         }
 
@@ -474,12 +481,13 @@ namespace Grapher
             if (currentProject.Graphs.Count <= 0)
                 return;
 
+            /* Local points. Avoiding negative Widths and Heights */
+            Point2D localStart = GraphCanvasData.SelectionStart;
+            Point2D localEnd = GraphCanvasData.SelectionEnd;
+
             /* Draw Selection Rectangle if needed */
-            if (!double.IsNaN(SelectionStart.XValue) && !double.IsNaN(SelectionStart.YValue) && !double.IsNaN(SelectionEnd.XValue) && !double.IsNaN(SelectionEnd.YValue))
+            if (!double.IsNaN(localStart.XValue) && !double.IsNaN(localStart.YValue) && !double.IsNaN(localEnd.XValue) && !double.IsNaN(localEnd.YValue))
             {
-                /* Local points. Avoiding negative Widths and Heights */
-                Point2D localStart = SelectionStart;
-                Point2D localEnd = SelectionEnd;
                 double temp;
 
                 if ((localEnd.XValue - localStart.XValue - 1) >= 0 && (localEnd.YValue - localStart.YValue - 1) >= 0)
@@ -514,9 +522,6 @@ namespace Grapher
                 }
             }
 
-            /* X and Y variables */
-            double xMin, xMax, yMin, yMax;
-            xMax = xMin = yMax = yMin = double.NaN;
 
             /* Serach for points as reference */
             foreach (Graph graph in currentProject.Graphs)
@@ -526,17 +531,17 @@ namespace Grapher
 
                 if (graph.Points.Count > 0)
                 {
-                    xMin = graph.Points[0].XValue;
-                    xMax = graph.Points[0].XValue;
-                    yMin = graph.Points[0].YValue;
-                    yMax = graph.Points[0].YValue;
+                    GraphCanvasData.xMin = graph.Points[0].XValue;
+                    GraphCanvasData.xMax = graph.Points[0].XValue;
+                    GraphCanvasData.yMin = graph.Points[0].YValue;
+                    GraphCanvasData.yMax = graph.Points[0].YValue;
 
                     break;
                 }
             }
 
             /* Return if no points */
-            if (double.IsNaN(xMax) || double.IsNaN(xMin) || double.IsNaN(yMax) || double.IsNaN(yMin))
+            if (double.IsNaN(GraphCanvasData.xMax) || double.IsNaN(GraphCanvasData.xMin) || double.IsNaN(GraphCanvasData.yMax) || double.IsNaN(GraphCanvasData.yMin))
                 return;
 
             /* Search Max and Min values */
@@ -547,10 +552,10 @@ namespace Grapher
 
                 foreach (Point2D point in graph.Points)
                 {
-                    xMin = (xMin > point.XValue) ? point.XValue : xMin;
-                    xMax = (xMax < point.XValue) ? point.XValue : xMax;
-                    yMin = (yMin > point.YValue) ? point.YValue : yMin;
-                    yMax = (yMax < point.YValue) ? point.YValue : yMax;
+                    GraphCanvasData.xMin = (GraphCanvasData.xMin > point.XValue) ? point.XValue : GraphCanvasData.xMin;
+                    GraphCanvasData.xMax = (GraphCanvasData.xMax < point.XValue) ? point.XValue : GraphCanvasData.xMax;
+                    GraphCanvasData.yMin = (GraphCanvasData.yMin > point.YValue) ? point.YValue : GraphCanvasData.yMin;
+                    GraphCanvasData.yMax = (GraphCanvasData.yMax < point.YValue) ? point.YValue : GraphCanvasData.yMax;
                 }
             }
 
@@ -560,9 +565,9 @@ namespace Grapher
                 Line XAxis = new Line()
                 {
                     X1 = 0,
-                    Y1 = CanvasTranslator.YRealToYScreen(0, yMin, yMax, GraphCanvas.ActualHeight),
+                    Y1 = CanvasTranslator.YRealToYScreen(0, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight),
                     X2 = GraphCanvas.ActualWidth,
-                    Y2 = CanvasTranslator.YRealToYScreen(0, yMin, yMax, GraphCanvas.ActualHeight),
+                    Y2 = CanvasTranslator.YRealToYScreen(0, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight),
                     Stroke = new SolidColorBrush { Color = (Color)ColorConverter.ConvertFromString("#272727") },
                     StrokeThickness = 1
                 };
@@ -570,9 +575,9 @@ namespace Grapher
 
                 Line YAxis = new Line()
                 {
-                    X1 = CanvasTranslator.XRealToXScreen(0, xMin, xMax, GraphCanvas.ActualWidth),
+                    X1 = CanvasTranslator.XRealToXScreen(0, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth),
                     Y1 = 0,
-                    X2 = CanvasTranslator.XRealToXScreen(0, xMin, xMax, GraphCanvas.ActualWidth),
+                    X2 = CanvasTranslator.XRealToXScreen(0, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth),
                     Y2 = GraphCanvas.ActualHeight,
                     Stroke = new SolidColorBrush { Color = (Color)ColorConverter.ConvertFromString("#272727") },
                     StrokeThickness = 1
@@ -599,8 +604,8 @@ namespace Grapher
                         foreach (Point2D point in graph.Points)
                             tmpPoly.Points.Add(new Point
                             {
-                                X = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth),
-                                Y = CanvasTranslator.YRealToYScreen(point.YValue, yMin, yMax, GraphCanvas.ActualHeight)
+                                X = CanvasTranslator.XRealToXScreen(point.XValue, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth),
+                                Y = CanvasTranslator.YRealToYScreen(point.YValue, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight)
                             });
 
                         switch (graph.Dash)
@@ -643,11 +648,33 @@ namespace Grapher
                         {
                             Line tmpLine = new Line();
 
-                            tmpLine.X1 = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth);
-                            tmpLine.Y1 = GraphCanvas.ActualHeight;
-                            tmpLine.X2 = CanvasTranslator.XRealToXScreen(point.XValue, xMin, xMax, GraphCanvas.ActualWidth);
-                            tmpLine.Y2 = CanvasTranslator.YRealToYScreen(point.YValue, yMin, yMax, GraphCanvas.ActualHeight);
+                            try
+                            {
+                                if (double.IsNaN(CanvasTranslator.XRealToXScreen(point.XValue, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth)))
+                                    tmpLine.X1 = GraphCanvas.ActualWidth / 2;
+                                else
+                                    tmpLine.X1 = CanvasTranslator.XRealToXScreen(point.XValue, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth);
 
+                                if (double.IsNaN(CanvasTranslator.YRealToYScreen(0, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight)))
+                                    tmpLine.Y1 = GraphCanvas.ActualHeight;
+                                else
+                                    tmpLine.Y1 = CanvasTranslator.YRealToYScreen(0, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight);
+
+                                if (double.IsNaN(CanvasTranslator.XRealToXScreen(point.XValue, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth)))
+                                    tmpLine.X2 = GraphCanvas.ActualWidth / 2;
+                                else
+                                    tmpLine.X2 = CanvasTranslator.XRealToXScreen(point.XValue, GraphCanvasData.xMin, GraphCanvasData.xMax, GraphCanvas.ActualWidth);
+
+                                if (double.IsNaN(CanvasTranslator.YRealToYScreen(point.YValue, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight)))
+                                    tmpLine.Y2 = 0;
+                                else
+                                    tmpLine.Y2 = CanvasTranslator.YRealToYScreen(point.YValue, GraphCanvasData.yMin, GraphCanvasData.yMax, GraphCanvas.ActualHeight);
+                            }
+                            catch (Exception)
+                            {
+                                continue;
+                            }
+                            
                             switch (graph.Dash)
                             {
                                 case DashType.Dot:

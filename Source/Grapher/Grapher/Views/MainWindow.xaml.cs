@@ -42,10 +42,10 @@ namespace Grapher
 
         private void graphCanvas_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            MainVM.SelectionStart.XValue = e.GetPosition(graphCanvas).X;
-            MainVM.SelectionStart.YValue = e.GetPosition(graphCanvas).Y;
-            MainVM.SelectionEnd.XValue = double.NaN;
-            MainVM.SelectionEnd.YValue = double.NaN;
+            MainVM.GraphCanvasData.SelectionStart.XValue = e.GetPosition(graphCanvas).X;
+            MainVM.GraphCanvasData.SelectionStart.YValue = e.GetPosition(graphCanvas).Y;
+            MainVM.GraphCanvasData.SelectionEnd.XValue = double.NaN;
+            MainVM.GraphCanvasData.SelectionEnd.YValue = double.NaN;
         }
 
         private void graphCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -53,8 +53,8 @@ namespace Grapher
             if (e.LeftButton != System.Windows.Input.MouseButtonState.Pressed)
                 return;
 
-            MainVM.SelectionEnd.XValue = e.GetPosition(graphCanvas).X;
-            MainVM.SelectionEnd.YValue = e.GetPosition(graphCanvas).Y;
+            MainVM.GraphCanvasData.SelectionEnd.XValue = e.GetPosition(graphCanvas).X;
+            MainVM.GraphCanvasData.SelectionEnd.YValue = e.GetPosition(graphCanvas).Y;
         }
     }
 }

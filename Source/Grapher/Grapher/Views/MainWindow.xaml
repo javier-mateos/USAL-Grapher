@@ -309,7 +309,7 @@
                 MouseMove="graphCanvas_MouseMove">
 
             <behaviors:Interaction.Triggers>
-                <behaviors:EventTrigger>
+                <behaviors:EventTrigger EventName="MouseLeftButtonUp">
                     <behaviors:InvokeCommandAction Command="{Binding FinishedSelection}"/>
                 </behaviors:EventTrigger>
             </behaviors:Interaction.Triggers>
