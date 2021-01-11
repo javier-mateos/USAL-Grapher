@@ -16,7 +16,6 @@
 
         <!-- Value Converters -->
         <local:GraphVisibilityIconConverter x:Key="GraphVisibilityIconConverter"/>
-        <local:GraphColorConverter x:Key="GraphColorConverter"/>
         <local:GraphTypeConverter x:Key="GraphTypeConverter"/>
 
     </Window.Resources>
@@ -41,17 +40,6 @@
                     <MenuItem Header="Project" Command="{Binding NewProject}"/>
                     <MenuItem Header="Graph" Command="{Binding NewGraph}"/>
                 </MenuItem>
-
-                <!-- Open -->
-                <MenuItem Header="Open">
-                    <MenuItem Header="Project"/>
-                </MenuItem>
-
-                <Separator/>
-
-                <!-- Save -->
-                <MenuItem Header="Save"/>
-                <MenuItem Header="Save all"/>
 
                 <Separator/>
 

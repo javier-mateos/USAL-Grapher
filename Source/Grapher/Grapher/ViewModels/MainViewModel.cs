@@ -97,7 +97,7 @@ namespace Grapher
 
         private void NewProjectExecute(object obj)
         {
-            Projects.Add(new Project { Name = "New Project" });
+            Projects.Add(new Project { Name = "Project " + (Projects.Count+1).ToString()});
         }
 
         private bool CloseProjectCanExecute(object obj)
@@ -132,7 +132,7 @@ namespace Grapher
 
         private void NewGraphExecute(object obj)
         {
-            Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "New Graph" });
+            Projects[SelectedProjectIndex].Graphs.Add(new Graph { Name = "Graph " + (Projects[SelectedProjectIndex].Graphs.Count+1).ToString()});
         }
 
         private bool EditGraphCanExecute(object obj)
