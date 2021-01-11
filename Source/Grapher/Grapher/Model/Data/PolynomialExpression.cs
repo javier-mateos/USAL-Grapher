@@ -8,7 +8,6 @@ namespace Grapher
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ObservableCollection<MonomialMember> Monomials{ get; set; }
-        public ObservableCollection<Point2D> CalculatedPoints { get; set; }
         public int Grade { get; set; } = 0;
         public int XMinVal { get; set; } = 0;
         public int XMaxVal { get; set; } = 0;
@@ -16,7 +15,6 @@ namespace Grapher
         public PolynomialExpression()
         {
             Monomials = new ObservableCollection<MonomialMember>();
-            CalculatedPoints = new ObservableCollection<Point2D>();
 
             this.PropertyChanged += PolynomialExpression_PropertyChanged;
         }

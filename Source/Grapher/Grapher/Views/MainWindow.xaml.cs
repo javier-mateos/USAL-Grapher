@@ -48,14 +48,6 @@ namespace Grapher
             MainVM.SelectionEnd.YValue = double.NaN;
         }
 
-        private void graphCanvas_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            MainVM.SelectionStart.XValue = double.NaN;
-            MainVM.SelectionStart.YValue = double.NaN;
-            MainVM.SelectionEnd.XValue = double.NaN;
-            MainVM.SelectionEnd.YValue = double.NaN;
-        }
-
         private void graphCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (e.LeftButton != System.Windows.Input.MouseButtonState.Pressed)

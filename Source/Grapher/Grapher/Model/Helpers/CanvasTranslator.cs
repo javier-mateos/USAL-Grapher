@@ -12,14 +12,14 @@
             return ((canvasHeight * (yMax - yReal)) / (yMax - yMin));
         }
 
-        /*public static double XScreenToXReal(double x, double Width, RepresentationParameters RepresentationParameters)
+        public static double XScreenToXReal(double xScreen, double xMin, double xMax, double canvasWidth)
         {
-            return ((RepresentationParameters.XMax - RepresentationParameters.XMin) * x / Width) + RepresentationParameters.XMin;
+            return ((xMax - xMin) * xScreen / canvasWidth) + xMin;
         }
 
-        public static double YScreenToYReal(double y, double Height, RepresentationParameters RepresentationParameters)
+        public static double YScreenToYReal(double yScreen, double yMin, double yMax, double canvasHeight)
         {
-            return RepresentationParameters.YMin - ((RepresentationParameters.YMax - RepresentationParameters.YMin) * (y - Height) / Height);
-        }*/
+            return ((yMax - yMin) * ((yScreen - canvasHeight) / canvasHeight) + yMin);
+        }
     }
 }

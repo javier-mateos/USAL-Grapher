@@ -262,8 +262,8 @@
 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="X" Width="130" DisplayMemberBinding="{Binding XValue}"/>
-                            <GridViewColumn Header="Y" Width="130" DisplayMemberBinding="{Binding YValue}"/>
+                            <GridViewColumn Header="X" Width="120" DisplayMemberBinding="{Binding XValue}"/>
+                            <GridViewColumn Header="Y" Width="120" DisplayMemberBinding="{Binding YValue}"/>
                         </GridView>
                     </ListView.View>
 

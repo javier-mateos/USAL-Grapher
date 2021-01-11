@@ -5,22 +5,24 @@ namespace Grapher
 {
     class MathCalc
     {
-        static public void PolynomialCalculator(PolynomialExpression poly, double canvasWidth)
+        static public void PolynomialCalculator(Graph graph, double canvasWidth)
         {
+            ObservableCollection<Point2D> temp = new ObservableCollection<Point2D>();
 
-            poly.CalculatedPoints.Clear();
+            graph.Points.Clear();
 
             for (int i = 0; i < canvasWidth; i++)
             {
                 double res = 0;
-                double xValue = poly.XMinVal + i * (poly.XMaxVal - poly.XMinVal) / canvasWidth;
+                double xValue = graph.PolyExp.XMinVal + i * (graph.PolyExp.XMaxVal - graph.PolyExp.XMinVal) / canvasWidth;
 
-                foreach (MonomialMember mon in poly.Monomials)
+                foreach (MonomialMember mon in graph.PolyExp.Monomials)
                     res += mon.Value * Math.Pow(xValue, mon.Grade);
 
-                poly.CalculatedPoints.Add(new Point2D {XValue = xValue, YValue = res});
+                temp.Add(new Point2D {XValue = xValue, YValue = res});
             }
 
+            graph.Points = temp;
         }
     }
 }

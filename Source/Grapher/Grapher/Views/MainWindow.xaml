@@ -301,22 +301,20 @@
                 </DataTemplate>
             </TabControl.ItemTemplate>
 
-            <!-- TabItem Content Template 
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-
-                    <Canvas Name="graphCanvas"/>
-
-                </DataTemplate>
-            </TabControl.ContentTemplate>-->
-
         </TabControl>
 
         <Canvas x:Name="graphCanvas" Margin="4 0 4 4"
                 Background="Transparent"
                 MouseLeftButtonDown="graphCanvas_MouseLeftButtonDown"
-                MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp"
-                MouseMove="graphCanvas_MouseMove"/>
+                MouseMove="graphCanvas_MouseMove">
+
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger>
+                    <behaviors:InvokeCommandAction Command="{Binding FinishedSelection}"/>
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+            
+        </Canvas>
 
     </DockPanel>
 </Window>
